@@ -198,6 +198,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l2"><a class="reference internal" href="4.2.05_paramtemp_ensemble_generation_strategies.html">Ensemble generation strategies</a></li>
 <li class="toctree-l2"><a class="reference internal" href="4.2.06_paramtemp_visualization_options.html">Visualization options</a></li>
 <li class="toctree-l2 current active"><a class="current reference internal" href="#">Prediction interpretation options</a></li>
+
 <li class="toctree-l2"><a class="reference internal" href="4.2.08_paramtemp_model_saving_options.html">Model saving options</a></li>
 <li class="toctree-l2"><a class="reference internal" href="4.2.09_paramtemp_define_verbosity_level.html">Define verbosity level</a></li>
 <li class="toctree-l2"><a class="reference internal" href="4.2.10_paramtemp_inspect_workspace.html">Inspect workspace</a></li>
@@ -424,13 +425,21 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Prediction interpretation options</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#define-occlusion-method">Define occlusion method</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#define-no-of-iterations">Define no. of iterations</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#define-fraction-of-features-to-be-visited-per-iteration">Define fraction of features to be visited per iteration</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#define-fraction-of-training-samples-to-be-visited-per-iteration-shapley">Define fraction of training samples to be visited per iteration (Shapley)</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#normalize-prediction-change-estimates-at-the-case-level">Normalize prediction change estimates at the case level</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#use-map-from-model-visualization-to-operate-in-predetermined-feature-space">Use map from model visualization to operate in predetermined feature space</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#produce-z-normalized-prediction-change-estimates">Produce z-normalized prediction change estimates</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bind-data-modification-to-neuroanatomical-atlas">Bind data modification to neuroanatomical atlas</a></li>
 </ul>
+</li>
+</ul>
+
             </nav>
         </div>
     </div>
@@ -449,25 +458,37 @@ document.write(`
 </div>
 <div class="section" id="define-occlusion-method">
 <h2>Define occlusion method<a class="headerlink" href="#define-occlusion-method" title="Permalink to this heading">#</a></h2>
-<p>Interpretability in NeuroMiner is based on <a class="reference external" href="https://towardsdatascience.com/inshort-occlusion-analysis-for-explaining-dnns-d0ad3af9aeb6">occlusion</a> methods where a fraction of features will be occluded and the change in prediction outcome in response to this occlusion will be quantified. Four different occlusion methods are  available:</p>
+<p>Interpretability in NeuroMiner is based on <a class="reference external" href="https://towardsdatascience.com/inshort-occlusion-analysis-for-explaining-dnns-d0ad3af9aeb6">occlusion</a> methods where a fraction of features will be occluded and the change in prediction outcome in response to this occlusion will be quantified. Six different occlusion methods are  available:</p>
 <div class="figure align-default" id="fig-nm-paramtemp-occlusion">
 <img alt="neurominer occlusion options" src="_images/NM_paramtemp_occlusion.png" />
 </div>
-<p>A fraction of the features will be replaced by 1) extreme values (upper and lower percentile that can be chosen by the user); 2) the median of each feature’s training sample; 3) the feature value with the median quantile added or subtracted (depending on whether that individual’s feature is below or above the training sample median); or 4) a random value from each feature’s training sample distribution.</p>
-<p>Please note that the third method might not be suitable for ordinally scaled data. Moreover, if the number of features is very low the number of possible permutations will also be low. In these scenarios the fourth occlusion method, e.g. occlude by random value from each feature’s training sample should be selected to obtain reasonable results.</p>
+<p>A fraction of the features will be replaced by 1) extreme values (upper and lower percentile that can be chosen by the user); 2) the median of each feature’s training sample; 3) the feature value with the median quantile added or subtracted (depending on whether that individual’s feature is below or above the training sample median); or 4) the feature value mirrored at the training sample median; 5) a random value from each feature’s training sample distribution; or 6) Shapley values using the kernel SHAP algorithm as implemented in MATLAB’s <a class="reference external" href="https://de.mathworks.com/help/stats/shapley.html">Shapley function</a>.</p>
+<p>Please note that the third method might not be suitable for ordinally scaled data. Moreover, if the number of features is very low the number of possible permutations will also be low. In these scenarios the fifth occlusion method, e.g. occlude by random value from each feature’s training sample, or Shapley should be selected to obtain reasonable results.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>When used in intermediate fusion analysis, the number of iterations is automatically adjusted to the lowest number of iterations possible across all modalities for the first three occlusion methods. If this results in a too low number of iterations, NeuroMiner will give a warning and it is recommended to use the fourth method ”random”.</p>
+<p>Note that for high dimensional data, i.e. if the number of features exceeds half the number of iterations, Shapley might not lead to accurate results. We therefore strongly recommend the selection of features using a map from model visualisation and/or, in the case of neuroimaging data, linking the data modification to a neuroanatomical atlas.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>When used in intermediate fusion analysis, the number of iterations is automatically adjusted to the lowest number of iterations possible across all modalities for the first four occlusion methods. If this results in a too low number of iterations, NeuroMiner will give a warning and it is recommended to use one of the other two methods, i.e. “random” or “shapley”.</p>
 </div>
 </div>
 <div class="section" id="define-no-of-iterations">
 <h2>Define no. of iterations<a class="headerlink" href="#define-no-of-iterations" title="Permalink to this heading">#</a></h2>
-<p>Here the number of iterations can be defined, i.e. how often a fraction of features should be occluded. The default value is 1000 but one has to keep in mind that this might be limited by the number of possible combinations, especially if the number of input features is low.</p>
+<p>Here the number of iterations can be defined, i.e. how often a fraction of features should be occluded. The default value is 1024 but one has to keep in mind that this might be limited by the number of possible combinations, especially if the number of input features is low.</p>
 </div>
 <div class="section" id="define-fraction-of-features-to-be-visited-per-iteration">
 <h2>Define fraction of features to be visited per iteration<a class="headerlink" href="#define-fraction-of-features-to-be-visited-per-iteration" title="Permalink to this heading">#</a></h2>
 <p>Here the user can define the fraction of features to be occluded each iteration. If a mask is applied, this fraction is applied to the remaining features after applying the mask.</p>
 </div>
+<div class="section" id="define-fraction-of-training-samples-to-be-visited-per-iteration-shapley">
+<h2>Define fraction of training samples to be visited per iteration (Shapley)<a class="headerlink" href="#define-fraction-of-training-samples-to-be-visited-per-iteration-shapley" title="Permalink to this heading">#</a></h2>
+<p>For Shapley values, the features are masked by replacing them with the training data. In contrast to the “random” method, the features are not just randomly replaced by one value from the training data distribution, but are replaced several times by different training data. In the end, the mean value is taken. Here, the user can specify the proportion of training samples that are randomly selected for feature occlusion.</p>
+</div>
+</div>
+<div class="tex2jax_ignore mathjax_ignore section" id="normalize-prediction-change-estimates-at-the-case-level">
+<h1>Normalize prediction change estimates at the case level<a class="headerlink" href="#normalize-prediction-change-estimates-at-the-case-level" title="Permalink to this heading">#</a></h1>
+<p>It can be specified whether the prediction change estimates, i.e. the output of the interpretability module, shall be reported and plotted (in the MLI Viewer) normalized to group-level (i.e. option “None”), or mean centered, z-normalized or scaled between -1 and 1 at case-level.</p>
 <div class="section" id="use-map-from-model-visualization-to-operate-in-predetermined-feature-space">
 <h2>Use map from model visualization to operate in predetermined feature space<a class="headerlink" href="#use-map-from-model-visualization-to-operate-in-predetermined-feature-space" title="Permalink to this heading">#</a></h2>
 <p>When the visualization module will be run, one can specify a map here, which will narrow down the feature space that will be evaluated by the interpretability module. The user can choose from different maps which will be created during <a class="reference internal" href="4.2.06_paramtemp_visualization_options.html#paramtemp-visualization-options"><span class="std std-ref">visualization</span></a>. If a map will be used, the user can threshold the map by defining a cutoff value or range, a cutoff method and a cutoff operator (e.g. to determine whether features below or above a specified cutoff value or within or outside a specified range should be included for prediction interpretation).</p>
@@ -554,13 +575,21 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Prediction interpretation options</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#define-occlusion-method">Define occlusion method</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#define-no-of-iterations">Define no. of iterations</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#define-fraction-of-features-to-be-visited-per-iteration">Define fraction of features to be visited per iteration</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#define-fraction-of-training-samples-to-be-visited-per-iteration-shapley">Define fraction of training samples to be visited per iteration (Shapley)</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#normalize-prediction-change-estimates-at-the-case-level">Normalize prediction change estimates at the case level</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#use-map-from-model-visualization-to-operate-in-predetermined-feature-space">Use map from model visualization to operate in predetermined feature space</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#produce-z-normalized-prediction-change-estimates">Produce z-normalized prediction change estimates</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bind-data-modification-to-neuroanatomical-atlas">Bind data modification to neuroanatomical atlas</a></li>
 </ul>
+</li>
+</ul>
+
   </nav></div>
 
 </div></div>
