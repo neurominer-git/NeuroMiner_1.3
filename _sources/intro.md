@@ -15,7 +15,7 @@ Version release date: 24th September 2024
 
 ## How to cite NeuroMiner
 
-> Koutsouleris, Vetter & Wiegand (2023). Neurominer [Computer software]. Retrieved from https://github.com/neurominer-git/NeuroMiner_1.2
+> Koutsouleris, N., Vetter, C., Wiegand, A., Hahn, L., & Mena, S. (2024). NeuroMiner (Version 1.3). GitHub. https://github.com/neurominer-git/NeuroMiner_1.3/
 
 
 ## Machine learning for precision psychiatry
