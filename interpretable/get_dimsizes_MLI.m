@@ -2,6 +2,7 @@ function [nY,datatype,inp] = get_dimsizes_MLI(inp,nx,FUSION)
 
 juspaceflag = false;
 ROImeansflag = false;
+inp.refdataflag = false;
 if isfield(inp.PREPROC, 'SPATIAL') && inp.PREPROC.SPATIAL.cubetype == 5 && isfield(inp.PREPROC.SPATIAL,'JUSPACE') && ~isempty(inp.PREPROC.SPATIAL.JUSPACE)
     juspaceflag = true;
     juspace_mod = 'SPATIAL';
@@ -22,8 +23,6 @@ elseif isfield(inp.PREPROC,'ACTPARAM')
             ind_PREPROC_ROImeans = a;
         end
     end
-else
-    inp.refdataflag = false;
 end
 
 featnames = {};
