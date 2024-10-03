@@ -8,10 +8,25 @@ echo '****************************************'
 echo '        VERSION 1.2 Feanor              '
 echo '****************************************'
 
-# compiled with matlab R2022a so MCR main is v912. Needs to change if different MCR is used.
-export LD_LIBRARY_PATH=/data/core-psy-pronia/opt/matlab/v912/runtime/glnxa64:/data/core-psy-pronia/opt/matlab/v912/bin/glnxa64:/data/core-psy-pronia/opt/matlab/v912/sys/os/glnxa64:/data/core-psy-pronia/opt/matlab/v912/sys/opengl/lib/glnxa64
+# compiled with matlab 
+R2023b
+ so MCR main is 
+R2023b
+. Needs to change if different MCR is used.
+export LD_LIBRARY_PATH=/data/core-psy-pronia/opt/matlab/
+R2023b
+/runtime/glnxa64:
+/data/core-psy-pronia/opt/matlab/
+R2023b
+/bin/glnxa64:
+/data/core-psy-pronia/opt/matlab/
+R2023b
+/sys/os/glnxa64:
+/data/core-psy-pronia/opt/matlab/
+R2023b
+/sys/opengl/lib/glnxa64
 export JOB_DIR=$PWD
-NEUROMINER=/data/core-psy-pronia/opt/NM/NeuroMinerMCCMain_Current_v912_core/for_testing
+NEUROMINER=/data/core-psy-pronia/opt/NM/NeuroMinerMCCMain_1.3_R2023b_core/for_testing
 export ACTION=visualize
 read -e -p 'Path to NM structure: ' datpath
 if [ ! -f $datpath ]; then
@@ -49,27 +64,27 @@ if [ "$analind" = '' ] ; then
 	echo 'An analysis index is mandatory! Exiting program.'
 	exit   
 fi
-read -p 'Is the selected analysis a multi-group analysis [ 1 = yes, 2 = no ] ' MULTI
+read -p 'Is the selected analysis a multi-group analysis [ 1 = yes, 2 = no ]: ' MULTI
 if [ "$MULTI" = '1' ] ; then
-   read -p 'Visualize at models at multi-group optima [ 1 = yes, 2 = no ] ' multiflag
+   read -p 'Visualize at models at multi-group optima [ 1 = yes, 2 = no ]: ' multiflag
 else
    multiflag=2
 fi
-read -p 'Write CVR and sign-based significance maps for each CV2 partition [ 1 = yes, 2 = no ] ' writeCV2flag
+read -p 'Write CVR and sign-based significance maps for each CV2 partition [ 1 = yes, 2 = no ]: ' writeCV2flag
 read -p 'Overwrite existing VISdatamats [yes = 1 | no = 2]: ' ovrwrt
 export optmodelspath=NaN 
 export optparamspath=NaN 
-read -p 'Save optimized preprocessing parameters and models to disk for future use [ 1 = yes, 2 = no ] ' saveparam
-read -p 'Low memory modus [ 1 = yes, 2 = no ] ' lowmemflag
+read -p 'Save optimized preprocessing parameters and models to disk for future use [ 1 = yes, 2 = no ]: ' saveparam
+read -p 'Low memory modus [ 1 = yes, 2 = no ]: ' lowmemflag
 if [ "$saveparam" = '2' ] ; then
-  read -p 'Load optimized preprocessing parameters and models from disk [ 1 = yes, 2 = no ] ' loadparam
+  read -p 'Load optimized preprocessing parameters and models from disk [ 1 = yes, 2 = no ]: ' loadparam
   if [ "$loadparam" = '1' ] ; then
-    read -e -p 'Path to OptPreprocParam master file ' optparamspath
+    read -e -p 'Path to OptPreprocParam master file: ' optparamspath
     if [ ! -f $optparamspath ] ; then
 	    echo $optparamspath' not found.'
 	    exit
     fi
-    read -e -p 'Path to OptModels master file ' optmodelspath
+    read -e -p 'Path to OptModels master file: ' optmodelspath
     if [ ! -f $optmodelspath ] ; then
 	    echo $optmodelspath' not found.'
 	    exit
@@ -80,6 +95,17 @@ else
 fi
 read -p 'Operate at the CV1 level [ 1 = yes, 2 = no ] ' inpCV1flag
 read -p 'Use standard deviation (SD) or standard error of mean (SEM) to compute CVR metrics [ 1 = SD, 2 = SEM ] ' CVRnorm
+read -p 'Imaging analysis? [1 = yes, 2 = no] ' imagingflag
+if [ "$imagingflag" = '1' ] ; then
+   read -e -p 'Path to space-defining image: ' spacedefimg_path
+   if [ ! -f $spacedefimg_path ] ; then
+       echo $spacedefimg_path' not found.'
+   exit
+   fi
+else
+   imagingflag=0
+   spacedefimg_path=NaN
+fi
 read -p 'CV2 grid start row: ' CV2x1
 read -p 'CV2 grid end row: ' CV2x2
 read -p 'CV2 grid start column: ' CV2y1
@@ -139,6 +165,8 @@ $optmodelspath
 $inpCV1flag
 $lowmemflag
 $CVRnorm
+$imagingflag
+$spacedefimg_path
 $curCPU
 $numCPU
 $CV2x1
@@ -166,7 +194,7 @@ cat > $SLURMFile <<EOF
 #SBATCH --mem=$MemoryGB
 #SBATCH --job-name=nm$ACTION
 #SBATCH --array=1-$numCPU
-#SBATCH -J sbatch_multi
+#SBATCH -J NM_VisModels
 
 $PMODE
 export MCR_CACHE_ROOT=/data/core-psy-pronia/opt/temp/$USER

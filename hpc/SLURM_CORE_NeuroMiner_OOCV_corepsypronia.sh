@@ -8,10 +8,25 @@ echo '****************************************'
 echo '        VERSION 1.2 Feanor              '
 echo '****************************************'
 
-# compiled with matlab R2022a so MCR main is v912. Needs to change if different MCR is used.
-export LD_LIBRARY_PATH=/data/core-psy-pronia/opt/matlab/v912/runtime/glnxa64:/data/core-psy-pronia/opt/matlab/v912/bin/glnxa64:/data/core-psy-pronia/opt/matlab/v912/sys/os/glnxa64:/data/core-psy-pronia/opt/matlab/v912/sys/opengl/lib/glnxa64
+# compiled with matlab 
+R2023b
+ so MCR main is 
+R2023b
+. Needs to change if different MCR is used.
+export LD_LIBRARY_PATH=/data/core-psy-pronia/opt/matlab/
+R2023b
+/runtime/glnxa64:
+/data/core-psy-pronia/opt/matlab/
+R2023b
+/bin/glnxa64:
+/data/core-psy-pronia/opt/matlab/
+R2023b
+/sys/os/glnxa64:
+/data/core-psy-pronia/opt/matlab/
+R2023b
+/sys/opengl/lib/glnxa64
 export JOB_DIR=$PWD
-NEUROMINER=/data/core-psy-pronia/opt/NM/NeuroMinerMCCMain_Current_v912_core/for_testing
+NEUROMINER=/data/core-psy-pronia/opt/NM/NeuroMinerMCCMain_1.3_R2023b_core/for_testing
 export ACTION=oocv
 read -e -p 'Path to NM structure: ' datpath
 if [ ! -f $datpath ]; then
@@ -167,7 +182,7 @@ cat > $SLURMFile <<EOF
 #SBATCH --mem=$MemoryGB
 #SBATCH --job-name=nm$ACTION
 #SBATCH --array=1-$numCPU
-#SBATCH -J sbatch_multi
+#SBATCH -J NM_OOCV
 
 $PMODE
 export MCR_CACHE_ROOT=/data/core-psy-pronia/opt/temp/$USER
