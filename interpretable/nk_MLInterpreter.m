@@ -1063,7 +1063,11 @@ for f=1:ix % Loop through CV2 permutations
                     end
                     fprintf('\nSaving %s', oMLIpath);
                     refdataflag = inp.refdataflag;
-                    refdata = inp.X.sY{nx}{1,1};
+                    if iscell(inp.X.sY)
+                        refdata = inp.X.sY{nx}{1,1};
+                    else
+                        refdata = inp.X.sY;
+                    end
                     save(oMLIpath,'predOrig', 'predInterp', 'mapInterp', 'mapInterp_ciu', 'mapInterp_cil', 'mapInterp_std', 'shapleyValues', 'operm','ofold','refdataflag','refdata');
                 end
                 if saveparam 

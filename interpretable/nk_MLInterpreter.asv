@@ -1056,13 +1056,16 @@ for f=1:ix % Loop through CV2 permutations
                                         %constraint that the sum of the coefficients equals fx (i.e. vM - v0)
                                         phiExceptLast = pinv(Z)*(v - zM.*fx);
                                         phi = [phiExceptLast;fx - sum(phiExceptLast,1)]; % do not forget to add 1 to the call in sum for the edge case where phiExceptLast is a row-vector (bivariate)
-                                        shapleyValues{h, nx}(q,:) = phi;
+                                        shapleyValues{h, nx}(q,fMapIdx) = phi;
                                 end
                             end
                         end
                     end
-                    fprintf('\nSaving %s', oMLIpath); 
-                    save(oMLIpath,'predOrig', 'predInterp', 'mapInterp', 'mapInterp_ciu', 'mapInterp_cil', 'mapInterp_std', 'shapleyValues', 'operm','ofold','inp.refdataflag');
+                    fprintf('\nSaving %s', oMLIpath);
+                    refdataflag = inp.refdataflag;
+                    if refdatafl
+                    refdata = inp.X.sY{nx}{1,1};
+                    save(oMLIpath,'predOrig', 'predInterp', 'mapInterp', 'mapInterp_ciu', 'mapInterp_cil', 'mapInterp_std', 'shapleyValues', 'operm','ofold','refdataflag','refdata');
                 end
                 if saveparam 
                     fprintf('\nSaving %s', OptModelPath); save(OptModelPath, 'MD', 'ofold','operm'); 
@@ -1159,7 +1162,7 @@ for h = 1:nclass
                 Results.BinResults(h).Modality(nx).Y_mapped_ciu = nm_nanmean(Results.BinResults(h).Modality(nx).Y_mapped_ciu(:,:,1:ol),3);
                 Results.BinResults(h).Modality(nx).Y_mapped_cil = nm_nanmean(Results.BinResults(h).Modality(nx).Y_mapped_cil(:,:,1:ol),3);
                 Results.BinResults(h).Modality(nx).Y_mapped_std = nm_nanmean(Results.BinResults(h).Modality(nx).Y_mapped_std(:,:,1:ol),3);
-                Results.BinResults(h).Modality(nx).ShapleyValues     = nm_nanmean(Results.BinResults(h).Modality(nx).ShapleyValues(:,:,1:ol),3);
+                Results.BinResults(h).Modality(nx).ShapleyValues = nm_nanmean(Results.BinResults(h).Modality(nx).ShapleyValues(:,:,1:ol),3);
                 Results.BinResults(h).RangePred = inp.MLI.RangePred(h);
                 vols = Results.BinResults(h).Modality(nx).Y_mapped;
                 if inp.refdataflag
@@ -1171,7 +1174,7 @@ for h = 1:nclass
                 Results.RegrResults.Modality(nx).Y_mapped_ciu   = nm_nanmean(Results.RegrResults.Modality(nx).Y_mapped_ciu(:,:,1:ol),3);
                 Results.RegrResults.Modality(nx).Y_mapped_cil   = nm_nanmean(Results.RegrResults.Modality(nx).Y_mapped_cil(:,:,1:ol),3);
                 Results.RegrResults.Modality(nx).Y_mapped_std   = nm_nanmean(Results.RegrResults.Modality(nx).Y_mapped_std(:,:,1:ol),3);
-                Results.RegrResults.Modality(nx).ShapleyValues       = nm_nanmean(Results.RegrResults.Modality(nx).ShapleyValues(:,:,1:ol),3);
+                Results.RegrResults.Modality(nx).ShapleyValues  = nm_nanmean(Results.RegrResults.Modality(nx).ShapleyValues(:,:,1:ol),3);
                 Results.RegrResults.RangePred = inp.MLI.RangePred(h);
                 vols = Results.RegrResults.Modality(nx).Y_mapped; 
                 if inp.refdataflag
