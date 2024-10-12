@@ -406,7 +406,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
 </div></div>
       
     </div>
@@ -422,6 +424,21 @@ document.write(`
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#top-plot-percentile-rank-of-features">Top plot: Percentile rank of features</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#interpretation">Interpretation</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bottom-plot-percentile-change-in-prediction">Bottom plot: Percentile change in prediction</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Interpretation</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -446,6 +463,32 @@ document.write(`
 <div class="figure align-default" id="fig-nm-mli-viewer-imaging">
 <img alt="Neurominer result viewer, visualization results mli" src="_images/NM_MLI_viewer_imaging.png" />
 <p class="caption"><span class="caption-number">Fig. 28 </span><span class="caption-text">ML Interpreter result viewer for neuroimaging data</span><a class="headerlink" href="#fig-nm-mli-viewer-imaging" title="Permalink to this image">#</a></p>
+</div>
+<p>The figure above shows the output of the occlusion-based interpretability for a predictive model, where the contribution of the different features to a subjec’ts prediciotn is assessed by systematically occluding each feature and observing the change in prediction.</p>
+<div class="section" id="top-plot-percentile-rank-of-features">
+<h2>Top plot: Percentile rank of features<a class="headerlink" href="#top-plot-percentile-rank-of-features" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>The bars represent the percentile ranks of the features for the selected subject. Each bar corresponds to a specific feature, indicating how that feature’s value compares to the distribution of values across the dataset.</p></li>
+<li><p>The coloured lines show the mean percentile rank of each group (classificaiton, in the case of patients and controls), providing a reference for comparison</p></li>
+</ul>
+<div class="section" id="interpretation">
+<h3>Interpretation<a class="headerlink" href="#interpretation" title="Permalink to this heading">#</a></h3>
+<p>The subject’s feature values are compared to both the patient and control groups. Features where the subject’s percentile is much higher or lower than the group means may be particularly important in differentiating the subject from the average predictions in either group.</p>
+</div>
+</div>
+<div class="section" id="bottom-plot-percentile-change-in-prediction">
+<h2>Bottom plot: Percentile change in prediction<a class="headerlink" href="#bottom-plot-percentile-change-in-prediction" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>This plot shows the change in prediction when each feature is occluded, with error bars representing the 95% confidence interval (CI) of the change
+Significant prediciton changes are indicated by blue bars, while non-significant changes are shown in gray.</p></li>
+</ul>
+<div class="section" id="id1">
+<h3>Interpretation<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Features with a significant prediciton change when occluded are more influential for this subject’s prediciton. For example, if occluding a feature to a large drop in the prediciton score (represented by a significant change below the zero line), this feature is positively contributing to the prediciton</p></li>
+<li><p>If occlusion leads to an increase in the prediciton score, it suggests that the feature has a negative contribution.</p></li>
+</ul>
+</div>
 </div>
 </div>
 
@@ -507,6 +550,27 @@ document.write(`
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#top-plot-percentile-rank-of-features">Top plot: Percentile rank of features</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#interpretation">Interpretation</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bottom-plot-percentile-change-in-prediction">Bottom plot: Percentile change in prediction</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Interpretation</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>
