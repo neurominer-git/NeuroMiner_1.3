@@ -332,7 +332,11 @@ if ~defaultsfl
                                     RANK.label = NM.TrainParam.LABEL.newlabel;
                                     RANK.labeldesc = sprintf('NM alternative label: %s', NM.TrainParam.LABEL.newlabelname);
                                 otherwise
-                                    RANK.label = NM.label(:, NM.TrainParam.MULTILABEL.sel );
+                                    if isfield(NM.TrainParam,'MULTILABEL')
+                                        RANK.label = NM.label(:, NM.TrainParam.MULTILABEL.sel );
+                                    else
+                                        RANK.label = NM.label;
+                                    end
                                     RANK.labeldesc = 'NM target label';
                             end
                             
