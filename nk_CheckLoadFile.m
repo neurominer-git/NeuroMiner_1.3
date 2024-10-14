@@ -52,7 +52,9 @@ for i=1:nvar
                 [iy,jy] = size(mapY.Tr);
                 
                 switch FUSION.flag % Concatenate modality data into single structure 
+
                     case 2 % Intermediate fusion
+                        
                         if ~iscell(mapY.Tr{1,1}{1})
                             t_nclass = 1;
                             multiproc = true;

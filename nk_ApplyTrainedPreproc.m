@@ -174,11 +174,11 @@ else
 
     % Transfer mapped data to appropriate container
     if nM > 1
-       mapY = nk_mapY2Struct(mapY, true);
+       [mapY, Param] = nk_mapY2Struct(mapY, Param, P, inp);
        [iy,jy] = size(mapY.Tr);
        mapY = nk_DealWithNaNCases(mapY, iy, jy, inp.nclass, true);
        if (iscell(mapYocv) && ~sum(cellfun(@isempty,mapYocv))) || ( ~iscell(mapYocv) && ~isempty(mapYocv))
-           mapYocv = nk_mapY2Struct(mapYocv, true); 
+           mapYocv = nk_mapY2Struct(mapYocv, Param, P, inp); 
            mapYocv = nk_DealWithNaNCases(mapYocv, iy, jy, inp.nclass, true);
        end
     else

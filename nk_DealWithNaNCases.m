@@ -24,9 +24,9 @@ nM=1; modalstr = '';
 for k=1:iy
     for l=1:jy
         for j = 1:t_nclass
+            fprintf('\nVisiting CV1 [ permutation: %g, fold: %g, class: %g ]', k, l, j); 
             for i=1:nZo 
                 for m=1:nM
-
                     %% Extract data from container
                     if nM>1
                         modalstr = sprintf('Modality #%g:', m); 
