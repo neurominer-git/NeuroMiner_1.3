@@ -178,18 +178,23 @@ if iscell(Y)
     end
     
 else
-    if isempty(inp.desc_oocv) || ~oocvmode
-        fprintf('\nPerforming %s on %s data', spatialstropts{PREPROC.SPATIAL.cubetype}, typestr);
-    else
-        fprintf('\nPerforming %s on %s data (%s)', spatialstropts{PREPROC.SPATIAL.cubetype}, typestr, inp.desc_oocv);
-    end
     if isempty(kbin)
         uPREPROC = nk_SetParamChain(paramfl, 1, PREPROC);
+        if isempty(inp.desc_oocv) || ~oocvmode
+            fprintf('\nPerforming %s on %s data', spatialstropts{uPREPROC.SPATIAL.cubetype}, typestr);
+        else
+            fprintf('\nPerforming %s on %s data (%s)', spatialstropts{uPREPROC.SPATIAL.cubetype}, typestr, inp.desc_oocv);
+        end
         sY = nk_PerfSpatFilt( Y, uPREPROC, paramfl.PV ); 
     else
         sY = cell(kbin,1);
         for u=1:kbin
             uPREPROC = nk_SetParamChain(paramfl, u, PREPROC);
+            if isempty(inp.desc_oocv) || ~oocvmode
+                fprintf('\nPerforming %s on %s data', spatialstropts{uPREPROC.SPATIAL.cubetype}, typestr);
+            else
+                fprintf('\nPerforming %s on %s data (%s)', spatialstropts{uPREPROC.SPATIAL.cubetype}, typestr, inp.desc_oocv);
+            end
             sY{u} = nk_PerfSpatFilt( Y, uPREPROC, paramfl.PV ); 
             inp.smoothing_kernels = uPREPROC.SPATIAL.PX.opt;  
         end

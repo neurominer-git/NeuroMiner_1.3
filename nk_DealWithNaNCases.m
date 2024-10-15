@@ -24,9 +24,9 @@ nM=1; modalstr = '';
 for k=1:iy
     for l=1:jy
         for j = 1:t_nclass
+            fprintf('\nVisiting CV1 [ permutation: %g, fold: %g, class: %g ]', k, l, j); 
             for i=1:nZo 
                 for m=1:nM
-
                     %% Extract data from container
                     if nM>1
                         modalstr = sprintf('Modality #%g:', m); 
@@ -35,9 +35,9 @@ for k=1:iy
                             outCV = out.CV{k,l}{i}{m};
                             outTs = out.Ts{k,l}{i}{m};                    
                         else
-                            outTr = out.Tr{k,l}{i}{j}{m};
-                            outCV = out.CV{k,l}{i}{j}{m};
-                            outTs = out.Ts{k,l}{i}{j}{m}; 
+                            outTr = out.Tr{k,l}{j}{i}{m};
+                            outCV = out.CV{k,l}{j}{i}{m};
+                            outTs = out.Ts{k,l}{j}{i}{m}; 
                         end
                     else
                         if multiproc
@@ -45,9 +45,9 @@ for k=1:iy
                             outCV = out.CV{k,l}{i};
                             outTs = out.Ts{k,l}{i};                    
                         else
-                            outTr = out.Tr{k,l}{i}{j};
-                            outCV = out.CV{k,l}{i}{j};
-                            outTs = out.Ts{k,l}{i}{j}; 
+                            outTr = out.Tr{k,l}{j}{i};
+                            outCV = out.CV{k,l}{j}{i};
+                            outTs = out.Ts{k,l}{j}{i}; 
                         end
                     end
 
