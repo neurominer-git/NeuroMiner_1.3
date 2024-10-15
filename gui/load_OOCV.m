@@ -57,7 +57,7 @@ for n = 1: numel(oocv)
             if isfield( handles.OOCV(cnt).data,'MultiResults'), multi_res = true; else, multi_res=false; end
             if multi_res
                 Cont = handles.OOCV(cnt).data.MultiResults{l};
-                handles.OOCV(cnt).flag = false;
+                handles.OOCV(cnt).flag = true;
             else
                 if isfield(handles.OOCV(cnt).data,'BinResults')
                     if iscell(handles.OOCV(cnt).data.BinResults)

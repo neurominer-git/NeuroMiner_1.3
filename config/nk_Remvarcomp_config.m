@@ -1,6 +1,6 @@
 function [REMVARCOMP, PX] = nk_Remvarcomp_config(NM, varind, REMVARCOMP, PX, parentstr)
 
-[m, ~] = size(NM.Y{varind});
+m = height(NM.cases);
 corrmeth    = 1;
 corrthresh  = 0.5;
 corrcrit = 'corr';
