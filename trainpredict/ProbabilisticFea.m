@@ -72,7 +72,7 @@ else
     AgreeFeat = tF; 
 end
 
-if VERBOSE
+if VERBOSE && ~isdeployed
     h_temp = findobj('Tag','FeatureMatrix');
     if isempty(h_temp)
         h_temp = figure('Name', 'Probabilistic Feature Exraction', ...
