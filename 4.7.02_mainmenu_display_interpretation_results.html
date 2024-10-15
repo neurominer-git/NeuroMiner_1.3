@@ -464,29 +464,29 @@ document.write(`
 <img alt="Neurominer result viewer, visualization results mli" src="_images/NM_MLI_viewer_imaging.png" />
 <p class="caption"><span class="caption-number">Fig. 28 </span><span class="caption-text">ML Interpreter result viewer for neuroimaging data</span><a class="headerlink" href="#fig-nm-mli-viewer-imaging" title="Permalink to this image">#</a></p>
 </div>
-<p>The figure above shows the output of the occlusion-based interpretability for a predictive model, where the contribution of the different features to a subjec’ts prediciotn is assessed by systematically occluding each feature and observing the change in prediction.</p>
+<p>The figure above shows the output of the occlusion-based interpretability for a predictive model, where the contribution of the different features to a subject’s prediction is assessed by systematically occluding the features and observing the change in prediction.</p>
 <div class="section" id="top-plot-percentile-rank-of-features">
 <h2>Top plot: Percentile rank of features<a class="headerlink" href="#top-plot-percentile-rank-of-features" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
-<li><p>The bars represent the percentile ranks of the features for the selected subject. Each bar corresponds to a specific feature, indicating how that feature’s value compares to the distribution of values across the dataset.</p></li>
-<li><p>The coloured lines show the mean percentile rank of each group (classificaiton, in the case of patients and controls), providing a reference for comparison</p></li>
+<li><p>The bars represent the percentile rank of each feature for the selected subject, showing how the feature’s value compares to the overall dataset.</p></li>
+<li><p>The coloured lines show the mean percentile rank of each group (classification), providing a reference for comparison</p></li>
 </ul>
 <div class="section" id="interpretation">
 <h3>Interpretation<a class="headerlink" href="#interpretation" title="Permalink to this heading">#</a></h3>
-<p>The subject’s feature values are compared to both the patient and control groups. Features where the subject’s percentile is much higher or lower than the group means may be particularly important in differentiating the subject from the average predictions in either group.</p>
+<p>The subject’s feature values are compared to both groups. The percentile rank can be especially informative for occlusion methods that use sample statistics, such as occlusion by the median, extremes, medianflip, or medianmirror, as it helps quantify the extent of feature modification during occlusion.</p>
 </div>
 </div>
 <div class="section" id="bottom-plot-percentile-change-in-prediction">
 <h2>Bottom plot: Percentile change in prediction<a class="headerlink" href="#bottom-plot-percentile-change-in-prediction" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
-<li><p>This plot shows the change in prediction when each feature is occluded, with error bars representing the 95% confidence interval (CI) of the change
-Significant prediciton changes are indicated by blue bars, while non-significant changes are shown in gray.</p></li>
+<li><p>This plot shows the average change in prediction when a feature is occluded (potentially together with other features depending on the defined fraction), with error bars representing the 95% confidence interval (CI) of the change.
+Significant prediction changes are indicated by blue bars, while non-significant changes are shown in gray. For Shapley, this plot visualizes Shapley values without any error bars and significance.</p></li>
 </ul>
 <div class="section" id="id1">
 <h3>Interpretation<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
-<li><p>Features with a significant prediciton change when occluded are more influential for this subject’s prediciton. For example, if occluding a feature to a large drop in the prediciton score (represented by a significant change below the zero line), this feature is positively contributing to the prediciton</p></li>
-<li><p>If occlusion leads to an increase in the prediciton score, it suggests that the feature has a negative contribution.</p></li>
+<li><p>Features with a significant prediction change when occluded are more influential for this subject’s individual prediction . Das stimmt nicht unbedingt, das hängt immer von der occlusion method ab, wie die Daten modifiziert wurden….</p></li>
+<li><p>The direction of each feature’s contribution needs to be interpreted in context of the occlusion method, i.e. with respect to how each feature was modified during occlusion.</p></li>
 </ul>
 </div>
 </div>
