@@ -211,12 +211,6 @@ for i = 1 : nM
     end       
 end
 
-% Check whether early fusion is active and factorization methods are used.
-% if so, all decompfl entries have to be set to 'yes'
-if FUSION.flag == 1 && any(decompfl)
-    decompfl(:)=true;
-end
-
 %% For factorization methods: TEMPLATE MAPPING   
 % Apply prerpocessing on the entire data and use these
 % parameters to adjust for arbitrary PCA rotations through 

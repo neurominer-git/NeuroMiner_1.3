@@ -1006,7 +1006,7 @@ if GDfl || batchflag == 0 || batchflag == 2
         case 'regression'
             lb = inp.labels;
             if MULTILABEL.flag && isfield(MULTILABEL,'sel')
-               lb = inp.label(:,MULTILABEL.sel);
+               lb = inp.labels(:,MULTILABEL.sel);
             end
             GDanalysis.Regr = nk_ComputeEnsembleProbability(GDanalysis.predictions(:,1,:), lb);
 
