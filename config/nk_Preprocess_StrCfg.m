@@ -13,6 +13,10 @@ end
 
 if isfield(PREPROC,'SPATIAL')
     switch PREPROC.SPATIAL.cubetype
+        case 7
+            suffx = [suffx '_flt-roimeans'];
+        case 5
+            suffx = [suffx '_flt-ntcorr'];
         case 4
             suffx = [suffx '_flt-FWHM'];
         case 3
@@ -122,6 +126,10 @@ if isfield(PREPROC,'ACTPARAM')
                      suffx = [ suffx '_rnk'];
                 case 'remvarcomp'
                     suffx = [ suffx '_rmvar'];
+                case 'JuSpace'
+                    suffx = [ suffx '_ntcorr'];
+                case 'ROImeans'
+                    suffx = [ suffx '_roimeans'];
             end
         end
     end
