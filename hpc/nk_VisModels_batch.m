@@ -45,12 +45,15 @@ load(datpath);
 
 % change analysis rootpath in batch mode
 if isdeployed
-    if jobdir(end) == '/'
-        jobdir = jobdir(1:end-1);
+    if jobdir(end) ~= '/'
+        jobdir = [parentdir '/'];
     end
     for i=1:analind
         analind_i = i;
         parentdir = NM.analysis{1,analind_i}.parentdir;
+        if parentdir(end) ~= '/'
+            parentdir = [parentdir '/'];
+        end
         NM.analysis{1,analind_i}.parentdir = jobdir;
         NM.analysis{1,analind_i}.rootdir = strrep(NM.analysis{1,analind_i}.rootdir,parentdir,jobdir);
         NM.analysis{1,analind_i}.logfile = strrep(NM.analysis{1,analind_i}.logfile,parentdir,jobdir);
