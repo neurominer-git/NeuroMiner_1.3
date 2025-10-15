@@ -8,7 +8,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Result Viewer &#8212; NeuroMiner Manual</title>
+    <title>Glossary (NM 1.4 additions) &#8212; NeuroMiner Manual</title>
   
   
   
@@ -67,13 +67,11 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="_static/sphinx-thebe.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = '4.7_mainmenu_display_training_results';</script>
-    <link rel="canonical" href="https://neurominer-git.github.io/NeuroMiner_1.2/4.7_mainmenu_display_training_results.html" />
+    <script>DOCUMENTATION_OPTIONS.pagename = '9.0_glossary';</script>
+    <link rel="canonical" href="https://neurominer-git.github.io/NeuroMiner_1.2/9.0_glossary.html" />
     <link rel="shortcut icon" href="_static/nm_logo2.ico"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Visualization results" href="4.7.01_mainmenu_display_visualization_results.html" />
-    <link rel="prev" title="Interprete predictions" href="4.14_mainmenu_interprete_classifiers.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -184,7 +182,7 @@ const thebe_selector_output = ".output, .cell_output"
 </li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">NeuroMiner interface</span></p>
-<ul class="current nav bd-sidenav">
+<ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="4.0_mainmenu.html">Main interface overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="4.1_mainmenu_input_data.html">Data entry in NeuroMiner</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="4.2_mainmenu_define_parameter_template.html">Define parameter template</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
@@ -215,7 +213,7 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="4.14_mainmenu_interprete_classifiers.html">Interprete predictions</a></li>
-<li class="toctree-l1 current active has-children"><a class="current reference internal" href="#">Result Viewer</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="4.7_mainmenu_display_training_results.html">Result Viewer</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="4.7.01_mainmenu_display_visualization_results.html">Visualization results</a></li>
 
 
@@ -311,7 +309,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="https://github.com/neurominer-git/NeuroMiner_1.3/issues/new?title=Issue%20on%20page%20%2F4.7_mainmenu_display_training_results.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/neurominer-git/NeuroMiner_1.3/issues/new?title=Issue%20on%20page%20%2F9.0_glossary.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -341,7 +339,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="_sources/4.7_mainmenu_display_training_results.md" target="_blank"
+      <li><a href="_sources/9.0_glossary.md" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -410,9 +408,7 @@ document.write(`
   </button>
 `);
 </script>
-<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="fa-solid fa-list"></span>
-</label>
+
 </div></div>
       
     </div>
@@ -423,30 +419,11 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Result Viewer</h1>
+    <h1>Glossary (NM 1.4 additions)</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
             
-            <div>
-                <h2> Contents </h2>
-            </div>
-            <nav aria-label="Page">
-                <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#accuracy-and-model-performance">Accuracy and model performance</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#model-comparisons">Model comparisons</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#classification-performance">Classification performance</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#generalization-error">Generalization error</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#model-complexity">Model complexity</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ensemble-diversity">Ensemble diversity</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#model-selection-frequency">Model selection frequency</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#multi-group-results">Multi-group results</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#calibration-decisioncurve-analysis-nm-1-4">Calibration &amp; Decision‑Curve Analysis (NM 1.4)</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#interpreting-calibration-dca">Interpreting calibration &amp; DCA</a></li>
-</ul>
-</li>
-</ul>
-            </nav>
         </div>
     </div>
 </div>
@@ -456,117 +433,14 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <div class="tex2jax_ignore mathjax_ignore section" id="result-viewer">
-<span id="mainmenu-display-training-results"></span><h1>Result Viewer<a class="headerlink" href="#result-viewer" title="Permalink to this heading">#</a></h1>
-<p>Once initialization, preprocessing, and model training have been performed, the results can then be viewed using this option. The results display interface can be understood in three main divisions:</p>
-<ol class="arabic simple">
-<li><p>the accuracy and model performance (initial screen)</p></li>
-<li><p>the model performance across the selected hyperparameters</p></li>
-<li><p>results concerning the individual features in the analysis</p></li>
-</ol>
-<div class="section" id="accuracy-and-model-performance">
-<h2>Accuracy and model performance<a class="headerlink" href="#accuracy-and-model-performance" title="Permalink to this heading">#</a></h2>
-<p>See {numref}(fig:Display_ClassPlot): The performance of a model can be fundamentally described by the degree to which the predictions match the target scores (e.g., how many people are classified correctly or how closely the features and target are related in a regression). In NeuroMiner, this is represented in multiple ways that each address a different aspect of the relationship between subjects, predictions, and targets.</p>
-<div class="figure align-default" id="fig-display-classplot">
-<img alt="Neurominer result viewer, classification plot" src="_images/Display_ClassPlot.png" />
-<p class="caption"><span class="caption-number">Fig. 12 </span><span class="caption-text">Result viewer option 1: Classification plot</span><a class="headerlink" href="#fig-display-classplot" title="Permalink to this image">#</a></p>
-</div>
-</div>
-<div class="section" id="model-comparisons">
-<h2>Model comparisons<a class="headerlink" href="#model-comparisons" title="Permalink to this heading">#</a></h2>
-<p>The user can perform statistical or visual comparisons when there is more than one analysis:</p>
-<div class="figure align-default" id="fig-nm-resultviewer-comparsion-dropdown">
-<img alt="Neurominer result viewer, comparisons options" src="_images/NM_resultviewer_comparison_dropdown.png" />
-</div>
-<p>See {numref}(fig:NM_resultviewer_statistical_comparison): Statistical comparisons can be conducted between the model performances using a variety of statistics using the ”Statistical Comparisons” option. The results of these comparisons are output in either excel spreadsheet files (i.e., xlsx) or in text files (i.e., csv) for Linux and Mac. The menu is quite intuitive (i.e., as below) where you select the analyses you want to compare on the right, you press the ”Save As” button to choose a name, and then you select the ”Compare” button to generate the files. The files will be generated in your working directory.</p>
-<div class="figure align-default" id="fig-nm-resultviewer-statistical-comparsion">
-<img alt="Neurominer result viewer, statistical comparison" src="_images/NM_resultviewer_statistical_comparison.png" />
-<p class="caption"><span class="caption-number">Fig. 13 </span><span class="caption-text">Within the main results display, the user can go to the ”Comparisons” menu item and then select the option to calculate statistical differences between separate models</span><a class="headerlink" href="#fig-nm-resultviewer-statistical-comparsion" title="Permalink to this image">#</a></p>
-</div>
-<p>See <a class="reference internal" href="#fig-nm-resultviewer-visual-comparsion"><span class="std std-numref">Fig. 14</span></a>: The user can also perform ”Visual Comparisons”. The user needs to select some performance measures that they want to compare visually in the top-half of the pop-up box using the ”Select” column tick-boxes, then select the analyses in the lower-half of the pop-up box. Then simply press ”Visualize”. If the bar plots are not good then the user can change it to ”Line plots” and then press ”Visualize” again.</p>
-<div class="figure align-default" id="fig-nm-resultviewer-visual-comparsion">
-<img alt="Neurominer result viewer, visual comparisons" src="_images/NM_resultviewer_visual_comparison.png" />
-<p class="caption"><span class="caption-number">Fig. 14 </span><span class="caption-text">Within the main results display, the user can go to the ”Comparisons” menu item and then select the option to display visual comparisons between separate models</span><a class="headerlink" href="#fig-nm-resultviewer-visual-comparsion" title="Permalink to this image">#</a></p>
-</div>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Due to incompatibilities of MATLAB’s App Designer with MATLAB versions older than R2021a, this model comparison tool only works in MATLAB R2021a and newer versions.</p>
-</div>
-</div>
-<div class="section" id="classification-performance">
-<h2>Classification performance<a class="headerlink" href="#classification-performance" title="Permalink to this heading">#</a></h2>
-<p>See <a class="reference internal" href="#fig-display-cvperf"><span class="std std-numref">Fig. 15</span></a>: NeuroMiner was built to work with hyperparameter optimization within a nested-cross validation framework as a standard. In this plot, you will see the inner-cycle, CV1, mean test performance plotted in blue and then the outer cycle, CV2, mean test performance plotted in red. Each point represents a hyperparameter combination. This gives an indication of how the hyperparameter combinations are influencing the test performance. On the right, the display also shows heatmaps that show how the performance in the CV1/CV2 folds changes over the permutations.</p>
-<div class="figure align-default" id="fig-display-cvperf">
-<img alt="Neurominer result viewer, cv performance plot" src="_images/Display_CVperf.png" />
-<p class="caption"><span class="caption-number">Fig. 15 </span><span class="caption-text">Result viewer: Cross-validation performance</span><a class="headerlink" href="#fig-display-cvperf" title="Permalink to this image">#</a></p>
-</div>
-</div>
-<div class="section" id="generalization-error">
-<h2>Generalization error<a class="headerlink" href="#generalization-error" title="Permalink to this heading">#</a></h2>
-<p>See <a class="reference internal" href="#fig-display-generror"><span class="std std-numref">Fig. 16</span></a>: Another way to look at CV2 test performance is with the generalization error, which is calculated in NeuroMiner as the CV1-test performance minus the CV2 test performance.</p>
-<div class="figure align-default" id="fig-display-generror">
-<img alt="Neurominer result viewer, generalization error" src="_images/Display_GenError.png" />
-<p class="caption"><span class="caption-number">Fig. 16 </span><span class="caption-text">Result viewer: Generalization error</span><a class="headerlink" href="#fig-display-generror" title="Permalink to this image">#</a></p>
-</div>
-</div>
-<div class="section" id="model-complexity">
-<h2>Model complexity<a class="headerlink" href="#model-complexity" title="Permalink to this heading">#</a></h2>
-<p>See <a class="reference internal" href="#fig-display-complexity"><span class="std std-numref">Fig. 17</span></a>. In NeuroMiner, complexity is defined as the percentage of support vectors divided by the number of subjects in the tested fold. This feature is useful to determine how varying parameter combinations may affect the fit of the model.</p>
-<div class="figure align-default" id="fig-display-complexity">
-<img alt="Neurominer result viewer, complexity" src="_images/Display_Complexity.png" />
-<p class="caption"><span class="caption-number">Fig. 17 </span><span class="caption-text">Result viewer: Model complexity</span><a class="headerlink" href="#fig-display-complexity" title="Permalink to this image">#</a></p>
-</div>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Model complexity can only be calculated for LIBSVM and RVM, but not for LIBLINEAR.</p>
-</div>
-</div>
-<div class="section" id="ensemble-diversity">
-<h2>Ensemble diversity<a class="headerlink" href="#ensemble-diversity" title="Permalink to this heading">#</a></h2>
-<p>See <a class="reference internal" href="#fig-display-ensemblediv"><span class="std std-numref">Fig. 18</span></a>: This is a measure of Shannon entropy across CV1 models for each CV2 partition. A higher entropy means higher disagreement between the CV1 models. This measure is useful because increased entropy will often result in a better fitting model at the CV2 level. It is useful to note that entropy can be maximized as a performance criterion in addition to accuracy.</p>
-<div class="figure align-default" id="fig-display-ensemblediv">
-<img alt="Neurominer result viewer, ensemble diversity" src="_images/Display_EnsembleDiv.png" />
-<p class="caption"><span class="caption-number">Fig. 18 </span><span class="caption-text">Result viewer: Ensemble diversity</span><a class="headerlink" href="#fig-display-ensemblediv" title="Permalink to this image">#</a></p>
-</div>
-</div>
-<div class="section" id="model-selection-frequency">
-<h2>Model selection frequency<a class="headerlink" href="#model-selection-frequency" title="Permalink to this heading">#</a></h2>
-<p>See <a class="reference internal" href="#fig-display-modelselection"><span class="std std-numref">Fig. 19</span></a>: Within an ensemble framework, the models that are selected within the inner, CV1, cycle are then applied to the outer test data. For example, if it is a 10x10 CV1 framework with a winner-takes-all method of model selection, then 100 models will be applied to the held-out CV2 test fold. This plot displays the percentage of times that each parameter combination was selected.</p>
-<div class="figure align-default" id="fig-display-modelselection">
-<img alt="Neurominer result viewer, model selection" src="_images/Display_ModelSelection.png" />
-<p class="caption"><span class="caption-number">Fig. 19 </span><span class="caption-text">Result viewer: Model selection frequency</span><a class="headerlink" href="#fig-display-modelselection" title="Permalink to this image">#</a></p>
-</div>
-</div>
-<div class="section" id="multi-group-results">
-<h2>Multi-group results<a class="headerlink" href="#multi-group-results" title="Permalink to this heading">#</a></h2>
-<p>If a multi-group analysis is conducted the results display will change to accommodate the groups. There will be a result section for each classifier and one results section for the multigroup model (see <a class="reference internal" href="#fig-display-multigroup"><span class="std std-numref">Fig. 20</span></a>).</p>
-<div class="figure align-left" id="fig-display-multigroup">
-<img alt="Neurominer result viewer, model selection" src="_images/Display_MultiGroup.png" />
-<p class="caption"><span class="caption-number">Fig. 20 </span><span class="caption-text">Result viewer: Multi-group display</span><a class="headerlink" href="#fig-display-multigroup" title="Permalink to this image">#</a></p>
-</div>
-<div class="admonition important">
-<p class="admonition-title">Important</p>
-<p>It is important to note that in the misclassification web the red dots are determined by which label (the one above) is misclassified as which label (the one at the bottom). Every corner represents one type of misclassification. The random classification line (the black dashed line) represents the random classification percentage. It differs based on the number of groups in the analysis. For a three-class analysis, it is represented by 6 points at 33%.</p>
-</div>
-</div>
-<div class="section" id="calibration-decisioncurve-analysis-nm-1-4">
-<h2>Calibration &amp; Decision‑Curve Analysis (NM 1.4)<a class="headerlink" href="#calibration-decisioncurve-analysis-nm-1-4" title="Permalink to this heading">#</a></h2>
-<ul class="simple">
-<li><p><strong>Probability calibration</strong> for non‑probabilistic models (e.g., SVM): Platt scaling or isotonic regression fitted in CV1 and applied to CV1/CV2 test predictions.</p></li>
-<li><p><strong>Calibration curves</strong>: reliability plots + Expected Calibration Error (ECE).</p></li>
-<li><p><strong>Decision‑Curve Analysis (DCA)</strong>: net benefit vs. threshold to evaluate clinical utility.</p></li>
-</ul>
-<div class="section" id="interpreting-calibration-dca">
-<h3>Interpreting calibration &amp; DCA<a class="headerlink" href="#interpreting-calibration-dca" title="Permalink to this heading">#</a></h3>
-<ul class="simple">
-<li><p><strong>Calibration curve</strong>: closer to the diagonal is better; report ECE and note over/under‑confidence regions.</p></li>
-<li><p><strong>Platt vs. Isotonic</strong>: Platt (parametric) is robust on small N; Isotonic (non‑parametric) is flexible but may overfit on very small N.</p></li>
-<li><p><strong>DCA</strong>: inspect net‑benefit vs. threshold; compare to “treat all / treat none”; discuss clinically relevant threshold bands.</p></li>
-</ul>
-</div>
-</div>
-<div class="toctree-wrapper compound">
-</div>
+  <div class="tex2jax_ignore mathjax_ignore section" id="glossary-nm-1-4-additions">
+<h1>Glossary (NM 1.4 additions)<a class="headerlink" href="#glossary-nm-1-4-additions" title="Permalink to this heading">#</a></h1>
+<p><strong>Aggregated back‑projection</strong> — single composite map (w_{\mathrm{agg}}=\sum_c w_c v_c) from latent‑space models.<br />
+<strong>Component‑wise back‑projection</strong> — factor‑resolved maps (w^{(\mathrm{backproj})}_c=w_c v_c) shown for discovered components.<br />
+<strong>Selective inference</strong> — hierarchical testing where feature‑level inference is conditioned on component‑level discovery.<br />
+<strong>Hungarian assignment</strong> — maximum‑weight matching used to align components across CV1 folds.<br />
+<strong>(L_p) share</strong> — modality‑level or component×modality contribution based on (p)-norm magnitudes of back‑projected maps.<br />
+<strong>Selection under the null</strong> — mirroring the component selection rule in permuted data (e.g., rank‑matched top‑K, threshold‑matched).</p>
 </div>
 
     <script type="text/x-thebe-config">
@@ -600,24 +474,6 @@ document.write(`
   
     <div class="footer-article-item"><!-- Previous / next buttons -->
 <div class="prev-next-area">
-    <a class="left-prev"
-       href="4.14_mainmenu_interprete_classifiers.html"
-       title="previous page">
-      <i class="fa-solid fa-angle-left"></i>
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Interprete predictions</p>
-      </div>
-    </a>
-    <a class="right-next"
-       href="4.7.01_mainmenu_display_visualization_results.html"
-       title="next page">
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Visualization results</p>
-      </div>
-      <i class="fa-solid fa-angle-right"></i>
-    </a>
 </div></div>
   
 </div>
@@ -627,31 +483,6 @@ document.write(`
             </div>
             
             
-              
-                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
-
-  <div class="sidebar-secondary-item">
-  <div class="page-toc tocsection onthispage">
-    <i class="fa-solid fa-list"></i> Contents
-  </div>
-  <nav class="bd-toc-nav page-toc">
-    <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#accuracy-and-model-performance">Accuracy and model performance</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#model-comparisons">Model comparisons</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#classification-performance">Classification performance</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#generalization-error">Generalization error</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#model-complexity">Model complexity</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ensemble-diversity">Ensemble diversity</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#model-selection-frequency">Model selection frequency</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#multi-group-results">Multi-group results</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#calibration-decisioncurve-analysis-nm-1-4">Calibration &amp; Decision‑Curve Analysis (NM 1.4)</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#interpreting-calibration-dca">Interpreting calibration &amp; DCA</a></li>
-</ul>
-</li>
-</ul>
-  </nav></div>
-
-</div></div>
               
             
           </div>
