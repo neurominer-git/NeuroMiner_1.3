@@ -166,7 +166,7 @@ const thebe_selector_output = ".output, .cell_output"
         </ul>
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">News</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="5.00_1.2_release_notes.html">NeuroMiner 1.3 (09/2024)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="5.00_1.4_release_notes.html">NeuroMiner 1.4 (10/2025) — Release notes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="0.1_2025_MLSchool.html">Online Machine Learning School: For Precision Medicine 2025</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Getting started</span></p>
@@ -179,6 +179,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1 has-children"><a class="reference internal" href="3.0_gettingstarted.html">Installation &amp; Configuration</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="3.0.00_macos_users.html">Setting up NeuroMiner on macOS</a></li>
 <li class="toctree-l2"><a class="reference internal" href="3.0.01_python_matlab.html">Python integration in MATLAB</a></li>
+
 </ul>
 </li>
 </ul>
@@ -214,6 +215,10 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="4.14_mainmenu_interprete_classifiers.html">Interprete predictions</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="4.7_mainmenu_display_training_results.html">Result Viewer</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="4.7.01_mainmenu_display_visualization_results.html">Visualization results</a></li>
+
+
+
+
 
 <li class="toctree-l2"><a class="reference internal" href="4.7.02_mainmenu_display_interpretation_results.html">ML Interpreter (MLI) results</a></li>
 </ul>
@@ -428,6 +433,7 @@ document.write(`
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mean-results">Mean results</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#grand-mean-results">Grand mean results</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#choosing-a-backprojection-mode-new-nm-1-4">Choosing a back‑projection mode (NEW, NM 1.4)</a></li>
 </ul>
             </nav>
         </div>
@@ -471,6 +477,15 @@ Visualization in NeuroMiner also applies to the calculation of the model-based p
 <p class="admonition-title">Z and P score images</p>
 <p>Visualization can also include the derivation of Z or P scores for the entire models (i.e., not the individual features) using permutation testing. These are outlined in <a class="reference internal" href="4.2.06_paramtemp_visualization_options.html#paramtemp-visualization-options"><span class="std std-ref">visualization options</span></a>.</p>
 </div>
+</div>
+<div class="section" id="choosing-a-backprojection-mode-new-nm-1-4">
+<h2>Choosing a back‑projection mode (NEW, NM 1.4)<a class="headerlink" href="#choosing-a-backprojection-mode-new-nm-1-4" title="Permalink to this heading">#</a></h2>
+<p>When visualizing latent‑space models (PCA/ICA/NMF):</p>
+<ul class="simple">
+<li><p><strong>Aggregated map</strong>: a single summary map (w_{\mathrm{agg}}=\sum_c w_c v_c).</p></li>
+<li><p><strong>Component‑wise maps</strong>: factor‑resolved maps (w^{(\mathrm{backproj})}_c=w_c v_c) for components discovered in model space (FDR‑controlled).</p></li>
+</ul>
+<p>For differences in <strong>statistics, permutation testing, and multi‑modal shares</strong>, see the dedicated page: <a class="reference internal" href="4.6.11_visualization_pathways_backprojection.html"><span class="doc std std-doc">Visualization Pathways in NM 1.4</span></a>.</p>
 </div>
 </div>
 
@@ -543,6 +558,7 @@ Visualization in NeuroMiner also applies to the calculation of the model-based p
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mean-results">Mean results</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#grand-mean-results">Grand mean results</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#choosing-a-backprojection-mode-new-nm-1-4">Choosing a back‑projection mode (NEW, NM 1.4)</a></li>
 </ul>
   </nav></div>
 

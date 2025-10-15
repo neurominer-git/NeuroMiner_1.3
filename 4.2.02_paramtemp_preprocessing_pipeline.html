@@ -168,7 +168,7 @@ const thebe_selector_output = ".output, .cell_output"
         </ul>
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">News</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="5.00_1.2_release_notes.html">NeuroMiner 1.3 (09/2024)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="5.00_1.4_release_notes.html">NeuroMiner 1.4 (10/2025) — Release notes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="0.1_2025_MLSchool.html">Online Machine Learning School: For Precision Medicine 2025</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Getting started</span></p>
@@ -181,6 +181,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1 has-children"><a class="reference internal" href="3.0_gettingstarted.html">Installation &amp; Configuration</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="3.0.00_macos_users.html">Setting up NeuroMiner on macOS</a></li>
 <li class="toctree-l2"><a class="reference internal" href="3.0.01_python_matlab.html">Python integration in MATLAB</a></li>
+
 </ul>
 </li>
 </ul>
@@ -216,6 +217,10 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="4.14_mainmenu_interprete_classifiers.html">Interprete predictions</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="4.7_mainmenu_display_training_results.html">Result Viewer</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="4.7.01_mainmenu_display_visualization_results.html">Visualization results</a></li>
+
+
+
+
 
 <li class="toctree-l2"><a class="reference internal" href="4.7.02_mainmenu_display_interpretation_results.html">ML Interpreter (MLI) results</a></li>
 </ul>
@@ -432,7 +437,10 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#enable-spatial-operations-using-spatial-op-wizard">Enable spatial operations using Spatial OP Wizard</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#regress-out-nuisance-covariates">Regress out nuisance covariates</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#partial-correlations-options">Partial Correlations options</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#combat-options">ComBat options</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#combat-options">ComBat options</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#combat-on-previously-unseen-batches-nm-1-4">ComBat on previously unseen batches (NM 1.4)</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#disparate-impact-remover-options">Disparate Impact Remover options</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#apply-dimensionality-reduction-method-to-data">Apply dimensionality reduction method to data</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#extracting-subspaces">Extracting Subspaces</a></li>
@@ -574,6 +582,21 @@ changed during previous preprocessing steps.</p>
 2015</a> and <a class="reference external" href="https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0022193">Dukart et al.,
 2016</a>). This function is useful when the user does not want to remove variance that may interact with the target of interest. For example, brain volume in schizophrenia interacts with age, therefore, the relationship between age and brain volume can be modeled in the control participants only and then the same ComBat correction can be used in the schizophrenia sample to remove the effects of age without removing the effects of illness.</p>
 <p>When this option is selected, you will see that another option <strong>7 | Provide index to training cases</strong> is added to the menu. Select it to define a logical vector consisting of TRUE and FALSE corresponding to the participants in the study; e.g., [0 0 0 0 1 1 1 1]. A FALSE value (i.e., a zero) indicates that they will not be used in the ComBat calculation. A TRUE value (i.e., a 1) indicates that they will be used in the calculation. Logical vectors can be created from normal double vectors by simply typing ”logical(yourvector)” on the command line (“0”s and “1”s will automatically treated as logical values as well).</p>
+<div class="section" id="combat-on-previously-unseen-batches-nm-1-4">
+<h3>ComBat on previously unseen batches (NM 1.4)<a class="headerlink" href="#combat-on-previously-unseen-batches-nm-1-4" title="Permalink to this heading">#</a></h3>
+<p>NM 1.4 can now <strong>apply ComBat to unseen batches at inference time</strong>:</p>
+<ul class="simple">
+<li><p>Fit ComBat parameters on CV1 training data (optionally with retainment covariates).</p></li>
+<li><p>When a <strong>new batch</strong> appears in CV1/CV2 test folds or external data, NM applies <strong>empirical Bayes mapping</strong> using the learned priors to harmonize the new batch <strong>without refitting</strong> on test data.</p></li>
+</ul>
+<p>Menu options:</p>
+<ul class="simple">
+<li><p><strong>Enable external‑batch adaptation</strong> [yes/no]</p></li>
+<li><p><strong>Retainment covariates</strong> (e.g., label) as in standard ComBat</p></li>
+<li><p><strong>Fallback policy</strong> if batch id is missing</p></li>
+</ul>
+<p>This supersedes previous recommendations that lacked an external‑validation mode; use with caution and always report train‑vs‑test batch distributions.</p>
+</div>
 </div>
 <div class="section" id="disparate-impact-remover-options">
 <h2>Disparate Impact Remover options<a class="headerlink" href="#disparate-impact-remover-options" title="Permalink to this heading">#</a></h2>
@@ -608,11 +631,19 @@ When the option to reduce dimensionality is selected, the user will be shown the
 <blockquote>
 <div><p>1 | Absolute number range [ 1 … n ] of eigenvectors
 2 | Percentage range [ 0 … 1 ] of max dimensionality
-3 | Energy range [ 0 … 1 ] of maximum decomposition</p>
+3 | Energy range [ 0 … 1 ] of maximum decomposition
+4 | Geometric
+5 | Power</p>
 </div></blockquote>
 <p><strong>1 | Absolute number range [ 1 … n ] of eigenvectors</strong>:  A whole number of components that they would like to retain a priori.</p>
 <p><strong>2 | Percentage range [ 0 … 1 ] of max dimensionality</strong>: A percentage of components to keep out of the total number of components.</p>
 <p><strong>3 | Energy range [ 0 … 1 ] of maximum decomposition</strong>: Retaining components based on the percentage of the total amount of variance explained (i.e., energy). For example, you might want to keep all components that explain 80% of the variance of your data.</p>
+<p><strong>4 | Geometric</strong>: Component counts follow a geometric sequence between <code class="docutils literal notranslate"><span class="pre">[min,</span> <span class="pre">max]</span></code> (e.g., 8, 12, 18, 27, …).</p>
+<p><strong>5 | Power</strong>: Component counts follow a power‑law spacing across <code class="docutils literal notranslate"><span class="pre">[min,</span> <span class="pre">max]</span></code> (denser at small or large scales depending on exponent).</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Use <strong>geometric</strong> and <strong>power</strong> options when the “right” scale is unknown and you want more coverage of early/late component ranges with fewer grid points. Applicable to PCA/NMF/RPCA; for PLS set latent‑dim grid analogously.</p>
+</div>
 <p>For each of these options, except PLS, NeuroMiner gives the user the option to optimize the number of components that are selected during cross-validation by specifying a range of values. For example, a range of 20%, 40%, and 60% can be selected by entering [0.2 0.4 0.6]. NeuroMiner will then conduct all optimization procedures using these percentages of retained variance–i.e., it will find the best PCA reduction considering the other settings. If a range of values is required, then it is recommended that an additional substep is performed.</p>
 <p>In expert mode, NeuroMiner allows you to realign the transformation matrix of the given CV1 training partition to a template transformation matrix, which has been produced either based on the entire CV2 training data or even the entire data. Do NOT use last option unless you know what you are doing as it may lead to severe overfitting. Specifically, for the template generation all preprocessing steps are executed on the CV2 training or entire dataset up to the point of dimensionality reduction (currently only PCA is supported). Then procrustes rotation is used to map the target PCA transformation matrix to the template. This operation allows to use probabilistic feature extraction techniques that operate across CV1 partition in scenarios where PCA is used, as the eigenvector positions will be aligned after the transformation. If you choose to generate the template using all available data, the downstream results of the model training process will be too optimistic. You should not report these in any publication or interpret them as reliable generalisation estimates. In this scenario, you MUST use external data (OOCV) to obtain an unbiased estimate of generalizability.</p>
 <div class="section" id="extracting-subspaces">
@@ -1110,7 +1141,10 @@ Markello, R. D., Hansen, J. Y., Liu, Z. Q., Bazinet, V., Shafiei, G., Suárez, L
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#enable-spatial-operations-using-spatial-op-wizard">Enable spatial operations using Spatial OP Wizard</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#regress-out-nuisance-covariates">Regress out nuisance covariates</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#partial-correlations-options">Partial Correlations options</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#combat-options">ComBat options</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#combat-options">ComBat options</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#combat-on-previously-unseen-batches-nm-1-4">ComBat on previously unseen batches (NM 1.4)</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#disparate-impact-remover-options">Disparate Impact Remover options</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#apply-dimensionality-reduction-method-to-data">Apply dimensionality reduction method to data</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#extracting-subspaces">Extracting Subspaces</a></li>

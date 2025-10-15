@@ -166,7 +166,7 @@ const thebe_selector_output = ".output, .cell_output"
         </ul>
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">News</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="5.00_1.2_release_notes.html">NeuroMiner 1.3 (09/2024)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="5.00_1.4_release_notes.html">NeuroMiner 1.4 (10/2025) — Release notes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="0.1_2025_MLSchool.html">Online Machine Learning School: For Precision Medicine 2025</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Getting started</span></p>
@@ -179,6 +179,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1 has-children"><a class="reference internal" href="3.0_gettingstarted.html">Installation &amp; Configuration</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="3.0.00_macos_users.html">Setting up NeuroMiner on macOS</a></li>
 <li class="toctree-l2"><a class="reference internal" href="3.0.01_python_matlab.html">Python integration in MATLAB</a></li>
+
 </ul>
 </li>
 </ul>
@@ -214,6 +215,10 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="4.14_mainmenu_interprete_classifiers.html">Interprete predictions</a></li>
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="4.7_mainmenu_display_training_results.html">Result Viewer</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
 <li class="toctree-l2 current active"><a class="current reference internal" href="#">Visualization results</a></li>
+
+
+
+
 
 <li class="toctree-l2"><a class="reference internal" href="4.7.02_mainmenu_display_interpretation_results.html">ML Interpreter (MLI) results</a></li>
 </ul>
@@ -428,6 +433,10 @@ document.write(`
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Visualization results</a></li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#roi-mapper">ROI mapper</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#overlay-nifti-viewer-nm-1-4">Overlay NIfTI Viewer (NM 1.4)</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#componentspecific-pattern-analysis-for-dr-models-hungarian-algorithm">Component‑specific pattern analysis for DR models (Hungarian algorithm)</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#featurerelevancegui-nm-1-4">FeatureRelevanceGUI (NM 1.4)</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#component-matching-across-cv1-folds-new-nm-1-4">Component matching across CV1 folds (NEW, NM 1.4)</a></li>
 </ul>
 
             </nav>
@@ -483,6 +492,42 @@ document.write(`
 <img alt="Neurominer result viewer, visualization results roi mapper" src="_images/NM_roi_mapper.png" />
 <p class="caption"><span class="caption-number">Fig. 26 </span><span class="caption-text">ROI Mapper options for analyzing/mapping the results (left) and plotting (right).</span><a class="headerlink" href="#fig-nm-roi-mapper" title="Permalink to this image">#</a></p>
 </div>
+</div>
+<div class="section" id="overlay-nifti-viewer-nm-1-4">
+<h1>Overlay NIfTI Viewer (NM 1.4)<a class="headerlink" href="#overlay-nifti-viewer-nm-1-4" title="Permalink to this heading">#</a></h1>
+<p>The new <strong><code class="docutils literal notranslate"><span class="pre">overlay_nifti_gui.m</span></code></strong> replaces the old imaging viewer and supports:</p>
+<ul class="simple">
+<li><p><strong>2D</strong> slices (axial, coronal, sagittal) and <strong>3D</strong> rendering</p></li>
+<li><p><strong>Neuroanatomical labels</strong> (atlas overlay) and <strong>ROI demarcation</strong></p></li>
+<li><p>Interactive thresholding and color‑map scaling</p></li>
+<li><p>Batch export of figures</p></li>
+</ul>
+</div>
+<div class="section" id="componentspecific-pattern-analysis-for-dr-models-hungarian-algorithm">
+<h1>Component‑specific pattern analysis for DR models (Hungarian algorithm)<a class="headerlink" href="#componentspecific-pattern-analysis-for-dr-models-hungarian-algorithm" title="Permalink to this heading">#</a></h1>
+<p>For PCA/NMF/RPCA/PLS pipelines, components can shift across CV folds. NM 1.4 adds <strong>Hungarian‑algorithm matching</strong> to <strong>re‑order components</strong> against a template, enabling component‑wise pattern summaries and consistent visualization across folds.</p>
+</div>
+<div class="section" id="featurerelevancegui-nm-1-4">
+<h1>FeatureRelevanceGUI (NM 1.4)<a class="headerlink" href="#featurerelevancegui-nm-1-4" title="Permalink to this heading">#</a></h1>
+<p>A new <strong>FeatureRelevanceGUI</strong> lets you:</p>
+<ul class="simple">
+<li><p>Plot a <strong>non‑imaging relevance metric</strong> for a given modality across <strong>multiple analyses</strong>, or compare <strong>modalities</strong> within a single early/intermediate‑fusion analysis.</p></li>
+<li><p>Customize <strong>ordering</strong> (by magnitude, stability, alphabetical), <strong>bar coloring</strong> (separate positive/negative with separate palettes), and <strong>color scaling</strong> proportional to weight magnitude.</p></li>
+<li><p>Export publication‑ready figures.</p></li>
+</ul>
+<p>Open from Result Viewer → <strong>Visualization results</strong> → <strong>Feature Relevance</strong>.</p>
+</div>
+<div class="section" id="component-matching-across-cv1-folds-new-nm-1-4">
+<h1>Component matching across CV1 folds (NEW, NM 1.4)<a class="headerlink" href="#component-matching-across-cv1-folds-new-nm-1-4" title="Permalink to this heading">#</a></h1>
+<p>When reporting <strong>component‑wise</strong> maps, NM aligns columns so the j‑th slot tracks the <strong>same latent factor</strong> across resamples:</p>
+<ol class="arabic simple">
+<li><p><strong>Prune</strong> zero/non‑finite columns and seed a <strong>reference</strong> per outer fold.</p></li>
+<li><p>Compute <strong>similarities</strong> (default: Pearson) between current and reference columns.</p></li>
+<li><p>Solve a <strong>Hungarian assignment</strong> with a minimum‑similarity threshold; unmatched slots remain NaN.</p></li>
+<li><p><strong>Sign‑correct</strong> matched columns to reference orientation.</p></li>
+<li><p><strong>Propagate</strong> alignment to component‑level p/q‑values, correlations, and (L_2) magnitudes (used by multi‑modal share plots).</p></li>
+</ol>
+<p>Controls: similarity method/threshold; diagnostics: per‑component correlation to reference. For details, see <a class="reference internal" href="4.6.11_visualization_pathways_backprojection.html"><span class="doc std std-doc">Visualization Pathways</span></a>.</p>
 </div>
 
     <script type="text/x-thebe-config">
@@ -554,6 +599,10 @@ document.write(`
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Visualization results</a></li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#roi-mapper">ROI mapper</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#overlay-nifti-viewer-nm-1-4">Overlay NIfTI Viewer (NM 1.4)</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#componentspecific-pattern-analysis-for-dr-models-hungarian-algorithm">Component‑specific pattern analysis for DR models (Hungarian algorithm)</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#featurerelevancegui-nm-1-4">FeatureRelevanceGUI (NM 1.4)</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#component-matching-across-cv1-folds-new-nm-1-4">Component matching across CV1 folds (NEW, NM 1.4)</a></li>
 </ul>
 
   </nav></div>

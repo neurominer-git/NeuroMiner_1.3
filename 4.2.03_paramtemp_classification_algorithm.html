@@ -166,7 +166,7 @@ const thebe_selector_output = ".output, .cell_output"
         </ul>
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">News</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="5.00_1.2_release_notes.html">NeuroMiner 1.3 (09/2024)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="5.00_1.4_release_notes.html">NeuroMiner 1.4 (10/2025) — Release notes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="0.1_2025_MLSchool.html">Online Machine Learning School: For Precision Medicine 2025</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Getting started</span></p>
@@ -179,6 +179,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1 has-children"><a class="reference internal" href="3.0_gettingstarted.html">Installation &amp; Configuration</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="3.0.00_macos_users.html">Setting up NeuroMiner on macOS</a></li>
 <li class="toctree-l2"><a class="reference internal" href="3.0.01_python_matlab.html">Python integration in MATLAB</a></li>
+
 </ul>
 </li>
 </ul>
@@ -214,6 +215,10 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="4.14_mainmenu_interprete_classifiers.html">Interprete predictions</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="4.7_mainmenu_display_training_results.html">Result Viewer</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="4.7.01_mainmenu_display_visualization_results.html">Visualization results</a></li>
+
+
+
+
 
 <li class="toctree-l2"><a class="reference internal" href="4.7.02_mainmenu_display_interpretation_results.html">ML Interpreter (MLI) results</a></li>
 </ul>
@@ -431,6 +436,7 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#configure-learning-algorithm">Configure learning algorithm</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#svm-options">SVM options</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#define-kernel-type">Define kernel type</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tensorflow-models-new">TensorFlow models (NEW)</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#regression-mode">Regression mode</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Define prediction performance criterion</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#select-learning-algorithm">Select learning algorithm</a></li>
@@ -569,6 +575,19 @@ This will display the following options:</p>
 <p>4 | Sigmoid</p>
 </div></blockquote>
 <p>Once these settings are defined, you will be directed back to the main menu for this section and you can proceed to the main parameter menu where you can configure the <a class="reference internal" href="4.2.04_paramtemp_learning_algorithm_parameters.html#learning-algorithm-parameters"><span class="std std-ref">learning algorithm</span></a>).</p>
+</div>
+<div class="section" id="tensorflow-models-new">
+<h3>TensorFlow models (NEW)<a class="headerlink" href="#tensorflow-models-new" title="Permalink to this heading">#</a></h3>
+<p>NM 1.4 adds <strong>TensorFlow</strong> models for deep learning (classification &amp; regression):</p>
+<ul class="simple">
+<li><p>Typical options: network type (MLP/CNN), depth/width, activation, dropout, batch size, epochs, optimizer (Adam/SGD), learning rate schedules, early stopping.</p></li>
+<li><p>Uses MATLAB–Python bridge — ensure your Python env includes <code class="docutils literal notranslate"><span class="pre">tensorflow</span></code>.</p></li>
+</ul>
+<p><strong>Enabling GPU (optional)</strong>
+If your system has a supported GPU and CUDA/cuDNN, <code class="docutils literal notranslate"><span class="pre">tensorflow</span></code> will use it automatically once installed in the Python env that MATLAB is linked to (see <em>Python integration in MATLAB</em>). Training and inference happen inside CV1/CV2 without data leakage.</p>
+<blockquote>
+<div><p>Select <strong>TensorFlow</strong> in <em>Select learning algorithm</em>; then configure <em>Learning algorithm parameters</em> as usual.</p>
+</div></blockquote>
 </div>
 <hr class="docutils" />
 <div class="section" id="regression-mode">
@@ -792,6 +811,7 @@ Toolbox)</p></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#configure-learning-algorithm">Configure learning algorithm</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#svm-options">SVM options</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#define-kernel-type">Define kernel type</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tensorflow-models-new">TensorFlow models (NEW)</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#regression-mode">Regression mode</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Define prediction performance criterion</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#select-learning-algorithm">Select learning algorithm</a></li>

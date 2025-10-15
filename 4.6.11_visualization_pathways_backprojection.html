@@ -8,7 +8,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Stacking &#8212; NeuroMiner Manual</title>
+    <title>Visualization Pathways in NM 1.4: Component‑wise vs. Aggregated Back‑projection &#8212; NeuroMiner Manual</title>
   
   
   
@@ -67,13 +67,11 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="_static/sphinx-thebe.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = '4.2.14_paramtemp_stacking';</script>
-    <link rel="canonical" href="https://neurominer-git.github.io/NeuroMiner_1.2/4.2.14_paramtemp_stacking.html" />
+    <script>DOCUMENTATION_OPTIONS.pagename = '4.6.11_visualization_pathways_backprojection';</script>
+    <link rel="canonical" href="https://neurominer-git.github.io/NeuroMiner_1.2/4.6.11_visualization_pathways_backprojection.html" />
     <link rel="shortcut icon" href="_static/nm_logo2.ico"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Use different label" href="4.2.15_paramtemp_different_label.html" />
-    <link rel="prev" title="Multi-group analyses" href="4.2.13_paramtemp_multigroup.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -184,10 +182,10 @@ const thebe_selector_output = ".output, .cell_output"
 </li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">NeuroMiner interface</span></p>
-<ul class="current nav bd-sidenav">
+<ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="4.0_mainmenu.html">Main interface overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="4.1_mainmenu_input_data.html">Data entry in NeuroMiner</a></li>
-<li class="toctree-l1 current active has-children"><a class="reference internal" href="4.2_mainmenu_define_parameter_template.html">Define parameter template</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l1 has-children"><a class="reference internal" href="4.2_mainmenu_define_parameter_template.html">Define parameter template</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="4.2.00_paramtemp_data_fusion.html">Data Fusion</a></li>
 <li class="toctree-l2"><a class="reference internal" href="4.2.01_paramtemp_cv_settings.html">Cross-validation settings</a></li>
 <li class="toctree-l2"><a class="reference internal" href="4.2.02_paramtemp_preprocessing_pipeline.html">Preprocessing pipeline</a></li>
@@ -203,7 +201,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l2"><a class="reference internal" href="4.2.11_paramtemp_save_parameter_template.html">Save parameter template</a></li>
 <li class="toctree-l2"><a class="reference internal" href="4.2.12_paramtemp_load_training_template.html">Load training template</a></li>
 <li class="toctree-l2"><a class="reference internal" href="4.2.13_paramtemp_multigroup.html">Multi-group analyses</a></li>
-<li class="toctree-l2 current active"><a class="current reference internal" href="#">Stacking</a></li>
+<li class="toctree-l2"><a class="reference internal" href="4.2.14_paramtemp_stacking.html">Stacking</a></li>
 <li class="toctree-l2"><a class="reference internal" href="4.2.15_paramtemp_different_label.html">Use different label</a></li>
 <li class="toctree-l2"><a class="reference internal" href="4.2.16_paramtemp_synthetic_data.html">Synthetic data</a></li>
 </ul>
@@ -309,7 +307,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="https://github.com/neurominer-git/NeuroMiner_1.3/issues/new?title=Issue%20on%20page%20%2F4.2.14_paramtemp_stacking.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/neurominer-git/NeuroMiner_1.3/issues/new?title=Issue%20on%20page%20%2F4.6.11_visualization_pathways_backprojection.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -339,7 +337,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="_sources/4.2.14_paramtemp_stacking.md" target="_blank"
+      <li><a href="_sources/4.6.11_visualization_pathways_backprojection.md" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -408,7 +406,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
 </div></div>
       
     </div>
@@ -419,11 +419,28 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Stacking</h1>
+    <h1>Visualization Pathways in NM 1.4: Component‑wise vs. Aggregated Back‑projection</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview">1) Overview</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#geometry-implications">2) Geometry &amp; implications</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#statistical-hierarchy-componentwise-mode">3) Statistical hierarchy (component‑wise mode)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#permutation-inference-two-modes">4) Permutation inference: two modes</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#aggregated-mode">4.1 Aggregated mode</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#componentwise-mode-with-selection-under-the-null">4.2 Component‑wise mode with selection under the null</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#multimodal-shares-and-fusion">5) Multi‑modal shares and fusion</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#alignment-across-cv1-folds-component-matching-sign-correction">6) Alignment across CV1 folds (component matching &amp; sign correction)</a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -433,27 +450,136 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <div class="tex2jax_ignore mathjax_ignore section" id="stacking">
-<span id="id1"></span><h1>Stacking<a class="headerlink" href="#stacking" title="Permalink to this heading">#</a></h1>
-<p>Stacking is an advanced feature of NeuroMiner that takes multiple learned decision values, combines them, and then learns again from this meta information (see <a class="reference external" href="https://machinelearningmastery.com/essence-of-stacking-ensembles-for-machine-learning/">this blog post for an in-depth overview</a>). This technique has provided better solutions than using single models to learn the classification or regression problem. Stacking can be done in NeuroMiner if you have different data modalities (e.g., you can learn from clinical and neuroimaging separately and then stack the learners) or if you have run separate analyses on one (or more) modalities (e.g., if you run a linear SVM and then a Random Forest and then combine the learned models).
-If you have more than one modality or have run separate analyses on the same data, then an option will appear in the ”Define parameter template” menu entitled ”1| Define meta-learning/stacking options”.</p>
+  <div class="tex2jax_ignore mathjax_ignore section" id="visualization-pathways-in-nm-1-4-componentwise-vs-aggregated-backprojection">
+<h1>Visualization Pathways in NM 1.4: Component‑wise vs. Aggregated Back‑projection<a class="headerlink" href="#visualization-pathways-in-nm-1-4-componentwise-vs-aggregated-backprojection" title="Permalink to this heading">#</a></h1>
 <blockquote>
-<div><p>1 | Activating stacking using prediction generated by other analyses [ ]</p>
-<p>2 | Select 1st-level analyses to provide features to stacker [ selected ]</p>
-<p>3 | Define feature names [ ]</p>
-<p>4 | Extract predictions from …</p>
+<div><p>This page explains how NeuroMiner 1.4 projects model weights back to feature space when a model is trained in a <strong>latent (component) space</strong> (e.g., PCA/ICA/NMF), and how inference differs between <strong>aggregated</strong> and <strong>component‑wise</strong> modes. It also documents permutation‑based testing and how components are aligned across CV1 folds. (Adapted from Koutsouleris, 2025.)</p>
 </div></blockquote>
-<p><strong>1 | Activating stacking using predictions generated by other analyses</strong></p>
-<p>Turn stacking on or off.</p>
-<p><strong>2 | Select 1st-level analyses to provide features to the stacker</strong></p>
-<p>Of the analyses that have been conducted, select the models that you want to stack.</p>
-<p><strong>3 | Define feature names [ Var ’feats’]</strong></p>
-<p>Optionally define feature names for each of the models that you want to stack.</p>
-<p><strong>4 | Extract predictions from …</strong></p>
-<p>This gives the option to extract predictions from either the CV1 training data or the CV1 test data (the default). If CV1 test data is used, the higher-level algorithms should not be combined with wrappers because of overfitting. Cross-CV probabilistic feature extraction is helpful in this regard to prevent overfitting.</p>
-<p>Once stacking is turned on and these options are defined, then all parameter settings now relate to the stacked models (e.g., all the preprocessing and training settings). These settings will need to be changed because the data inputs are now the decision scores for each of the models (i.e., you’ll have to change the preprocessing accordingly). Then you can return to the main menu, initialize the stacking models, and train as normal. The results will then relate to the stacked models rather than the original data.</p>
-<p>It’s important to note that the results now pertain to the decision scores of the stacked models and therefore the interpretation of results is based on the models and not the original data (i.e., you can see how one model performed over another, but not information related to the individual variables).</p>
-<p>Please note that stacking does not work with external validation data.</p>
+<div class="section" id="overview">
+<h2>1) Overview<a class="headerlink" href="#overview" title="Permalink to this heading">#</a></h2>
+<p>In factorization‑based pipelines (PCA, ICA, NMF, …), NeuroMiner trains the predictor on component scores (z_c = X v_c) with weights (w_c). Two display modes are available:</p>
+<ul class="simple">
+<li><p><strong>Aggregated</strong>: a <strong>single</strong> back‑projected map
+[
+w_{\mathrm{agg}}=\sum_{c=1}^{C} w_c, v_c
+]</p></li>
+<li><p><strong>Component‑wise</strong>: a <strong>set</strong> of maps, one per selected component
+[
+w^{(\mathrm{backproj})}_c = w_c, v_c \quad\text{for selected } c
+]</p></li>
+</ul>
+<p>Aggregated maps give a compact “overall” picture; component‑wise maps preserve factor structure and typically offer higher statistical power.</p>
+</div>
+<div class="section" id="geometry-implications">
+<h2>2) Geometry &amp; implications<a class="headerlink" href="#geometry-implications" title="Permalink to this heading">#</a></h2>
+<p>With aggregation, cross‑component covariance can <strong>attenuate</strong> apparent signal (cancellation):
+[
+\mathrm{Var}(w_{\mathrm{agg}})=\sum_c w_c^2 \mathrm{Var}(v_c) + 2!!\sum_{1\le c&lt;d\le C} ! w_c w_d, \mathrm{Cov}(v_c, v_d).
+]</p>
+<p>This is why feature‑level permutation tests on (w_{\mathrm{agg}}) often show fewer significant features than the factor‑resolved tests on (w^{(\mathrm{backproj})}_c).</p>
+<p><strong>At a glance</strong></p>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Aspect</p></th>
+<th class="head"><p>Component‑wise</p></th>
+<th class="head"><p>Aggregated</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Preserves latent structure</p></td>
+<td><p>✅</p></td>
+<td><p>❌</p></td>
+</tr>
+<tr class="row-odd"><td><p>Statistical power</p></td>
+<td><p>Higher (factor‑specific)</p></td>
+<td><p>Lower (cancellation)</p></td>
+</tr>
+<tr class="row-even"><td><p>Interpretability</p></td>
+<td><p>Mechanistic, factor‑resolved</p></td>
+<td><p>Summary‑level</p></td>
+</tr>
+<tr class="row-odd"><td><p>Best used for</p></td>
+<td><p>Explaining how prediction arises</p></td>
+<td><p>Showing where overall signal lies</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="statistical-hierarchy-componentwise-mode">
+<h2>3) Statistical hierarchy (component‑wise mode)<a class="headerlink" href="#statistical-hierarchy-componentwise-mode" title="Permalink to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p><strong>Component selection in model space</strong>: test whether each component contributes significantly; control FDR across components → discovery set (\mathcal{C}_{\mathrm{sig}}).</p></li>
+<li><p><strong>Feature‑level inference within each selected component</strong>: run feature‑wise tests on (w^{(\mathrm{backproj})}<em>c) for (c\in\mathcal{C}</em>{\mathrm{sig}}); control FDR <strong>per component</strong>.</p></li>
+</ol>
+<p>This is a <strong>hierarchical selective‑inference</strong> design: the feature‑level family is restricted to the already‑discovered components; no extra correction across components at the feature level.</p>
+</div>
+<div class="section" id="permutation-inference-two-modes">
+<h2>4) Permutation inference: two modes<a class="headerlink" href="#permutation-inference-two-modes" title="Permalink to this heading">#</a></h2>
+<p>Let (P) be the set of label permutations.</p>
+<div class="section" id="aggregated-mode">
+<h3>4.1 Aggregated mode<a class="headerlink" href="#aggregated-mode" title="Permalink to this heading">#</a></h3>
+<p>Test a composite field against its permuted counterparts:
+[
+T_{\mathrm{agg}}=\phi(w_{\mathrm{agg}})\ \text{vs.}\ \bigl{\phi(w^{(p)}_{\mathrm{agg}}): p\in P\bigr},
+]
+with a feature‑wise statistic (\phi(\cdot)) (e.g., (|w|) or a Z‑score). Because factors are mixed, null variance inflates and sensitivity drops.</p>
+</div>
+<div class="section" id="componentwise-mode-with-selection-under-the-null">
+<h3>4.2 Component‑wise mode with selection under the null<a class="headerlink" href="#componentwise-mode-with-selection-under-the-null" title="Permalink to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p>Compute a component score (s_c) (e.g., (|w_c|)). For each (p\in P), compute (S^{(p)}_c).</p></li>
+<li><p>Select components via FDR in the observed data → (\mathcal{C}_{\mathrm{sig}}).</p></li>
+<li><p><strong>Mirror selection under the null</strong> per permutation using one of:</p></li>
+</ol>
+<ul class="simple">
+<li><p><strong>Rank‑matched top‑K</strong>: let (K=|\mathcal{C}_{\mathrm{sig}}|), select the top‑(K) (S^{(p)}_c).</p></li>
+<li><p><strong>Threshold‑matched</strong>: determine observed cutoff (t_{\mathrm{obs}}); select all (c) with (S^{(p)}<em>c\ge t</em>{\mathrm{obs}}) (trim/pad to (K) if needed).</p></li>
+</ul>
+<ol class="arabic simple" start="4">
+<li><p>For feature (f) in selected slot (c), compute empirical p:
+[
+\hat p_{f,c} = \frac{E_{f,c}+1}{|P_f|+1},\quad E_{f,c}=\sum_{p\in P_f}\mathbf{1}!\left(\bigl|w^{(p)}<em>{f,c}\bigr|\ge \bigl|w</em>{f,c}\bigr|\right).
+]
+Apply FDR <strong>within</strong> each component. When using Z‑scores, compute permutation mean/variance with <strong>valid counts</strong> to handle missingness.</p></li>
+</ol>
+</div>
+</div>
+<div class="section" id="multimodal-shares-and-fusion">
+<h2>5) Multi‑modal shares and fusion<a class="headerlink" href="#multimodal-shares-and-fusion" title="Permalink to this heading">#</a></h2>
+<p>For early fusion, decompose the concatenated feature matrix; for intermediate fusion, decompose per modality and align components across modalities first.</p>
+<ul class="simple">
+<li><p><strong>Aggregated (modality‑level) share</strong> over components (\mathcal{C}):
+[
+L^{(m)}<em>p=\frac{\sum</em>{c\in\mathcal{C}}\bigl|w^{(m)}<em>c\bigr|<em>p}{\sum</em>{m’}\sum</em>{c\in\mathcal{C}}\bigl|w^{(m’)}_c\bigr|_p}
+]</p></li>
+<li><p><strong>Component×modality share</strong> (factor‑resolved), for (c\in\mathcal{C}<em>{\mathrm{sig}}):
+[
+L^{(m)}</em>{p,c}=\frac{\bigl|w^{(m)}_c\bigr|<em>p}{\sum</em>{m’}\bigl|w^{(m’)}_c\bigr|_p}.
+]</p></li>
+</ul>
+<p>Use (\mathcal{C}=) all components in aggregated mode; use (\mathcal{C}_{\mathrm{sig}}) in component‑wise mode.</p>
+</div>
+<div class="section" id="alignment-across-cv1-folds-component-matching-sign-correction">
+<h2>6) Alignment across CV1 folds (component matching &amp; sign correction)<a class="headerlink" href="#alignment-across-cv1-folds-component-matching-sign-correction" title="Permalink to this heading">#</a></h2>
+<p>NM 1.4 aligns factorized maps so that the <strong>j‑th column</strong> refers to the same latent component across resamples:</p>
+<ul class="simple">
+<li><p><strong>Prune</strong> zero/non‑finite columns and cache a <strong>reference</strong> per outer fold.</p></li>
+<li><p>Compute a <strong>similarity matrix</strong> (default: Pearson correlation).</p></li>
+<li><p>Solve a <strong>maximum‑weight assignment</strong> (Hungarian / linear‑sum) with a similarity threshold; unmatched slots are left NaN.</p></li>
+<li><p><strong>Sign‑correct</strong> matched columns so orientations are consistent.</p></li>
+<li><p><strong>Propagate</strong> the alignment to p‑values, correlations, magnitudes, and multi‑modal energy summaries (component (L_2) norms).</p></li>
+</ul>
+<p>See also: <em>Component matching across folds</em> below for an operational summary and pointers to controls.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p class="rubric">Practical guidance</p>
+<ul class="simple">
+<li><p>Prefer <strong>component‑wise</strong> mode when interpretability and sensitivity are critical (e.g., explaining predictive factors).</p></li>
+<li><p>Use <strong>aggregated</strong> maps when you need a compact overview or for quick QC.</p></li>
+<li><p>In multi‑modal settings, report both <strong>modality‑level</strong> and <strong>factor‑resolved</strong> shares.</p></li>
+</ul>
+</div>
+</div>
 </div>
 
     <script type="text/x-thebe-config">
@@ -487,24 +613,6 @@ If you have more than one modality or have run separate analyses on the same dat
   
     <div class="footer-article-item"><!-- Previous / next buttons -->
 <div class="prev-next-area">
-    <a class="left-prev"
-       href="4.2.13_paramtemp_multigroup.html"
-       title="previous page">
-      <i class="fa-solid fa-angle-left"></i>
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Multi-group analyses</p>
-      </div>
-    </a>
-    <a class="right-next"
-       href="4.2.15_paramtemp_different_label.html"
-       title="next page">
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Use different label</p>
-      </div>
-      <i class="fa-solid fa-angle-right"></i>
-    </a>
 </div></div>
   
 </div>
@@ -514,6 +622,29 @@ If you have more than one modality or have run separate analyses on the same dat
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview">1) Overview</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#geometry-implications">2) Geometry &amp; implications</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#statistical-hierarchy-componentwise-mode">3) Statistical hierarchy (component‑wise mode)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#permutation-inference-two-modes">4) Permutation inference: two modes</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#aggregated-mode">4.1 Aggregated mode</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#componentwise-mode-with-selection-under-the-null">4.2 Component‑wise mode with selection under the null</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#multimodal-shares-and-fusion">5) Multi‑modal shares and fusion</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#alignment-across-cv1-folds-component-matching-sign-correction">6) Alignment across CV1 folds (component matching &amp; sign correction)</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>
