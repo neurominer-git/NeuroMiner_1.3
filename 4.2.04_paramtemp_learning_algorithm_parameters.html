@@ -440,6 +440,7 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#random-forests-sklearn-randomforestclassifier">RANDOM FORESTS (sklearn RandomForestClassifier)</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gradient-boosting-sklearn-gradientboostingclassifier">GRADIENT BOOSTING (sklearn GradientBoostingClassifier)</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mlp-perceptron-sklearn-mlpclassifier">MLP PERCEPTRON (sklearn MLPClassifier)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#seqnn-tensorflow-sequential-model">SeqNN (TensorFlow Sequential Model)</a></li>
 </ul>
 </li>
 </ul>
@@ -709,6 +710,60 @@ Specifies the number of iterations with no improvement in the validation score b
 <p><strong>21 | Set maximum function evaluations</strong><br />
 Limits the number of function evaluations during the optimization process. This helps control the computational cost of training.</p>
 </div>
+<div class="section" id="seqnn-tensorflow-sequential-model">
+<h3>SeqNN (TensorFlow Sequential Model)<a class="headerlink" href="#seqnn-tensorflow-sequential-model" title="Permalink to this heading">#</a></h3>
+<p>The configuration options for the Sequential Neural Network (SeqNN) are based on the <a class="reference external" href="https://www.tensorflow.org/guide/keras/sequential_model">Sequential Model</a> class of the Tensorflow API. Please refer to the official TensorFlow documentation for a detailed explanation of all available parameters and functionalities. Below we provide a summary of the configurable options within NeuroMiner for SeqNN.</p>
+<blockquote>
+<div><p>1 | Define SeqNN structures: hidden layers (length of row) and sizes (values)</p>
+<p>2 | Select activation function</p>
+<p>3 | Select solver method</p>
+<p>4 | Define alpha parameter (L2 regularization coefficient)</p>
+<p>5 | Select batch size</p>
+<p>6 | Define initial learning rate</p>
+<p>7 | Set maximum number of iterations</p>
+<p>8 | Set random seed</p>
+<p>9 | Set loss class weighting</p>
+<p>10 | Enable early stopping</p>
+<p>11 | Define early stopping patience</p>
+<p>12 | Select training loss function</p>
+<p>13 | Enable internal validation</p>
+<p>14 | Define validation data fraction</p>
+</div></blockquote>
+<p><strong>1 | Define SeqNN structures: hidden layers (length of row) and sizes (values)</strong>
+Specifies the architecture(s) of the sequential neural network, including the number and size of hidden layers. Each row in the defined matrix represents a different network configuration.
+For example, [100 100; 200 100] will train two networks: one with two hidden layers of 100 neurons each, and another with layers of 200 and 100 neurons, respectively.
+If you need to define structures with different numbers of layers, use 0 as a placeholder. For example, [100, 100, 100; 100, 100, 0] will test two structures — one with three hidden layers (100×100×100) and one with two (100×100).</p>
+<p><strong>2 | Select activation function</strong>
+Chooses the activation function applied to each layer’s neurons. Common options include ‘relu’ (Rectified Linear Unit), ‘tanh’, ‘sigmoid’, ‘linear’ and ‘softmax’. The activation function introduces non-linearity, enabling the network to model complex input–output relationships.</p>
+<p><strong>3 | Select solver method</strong>
+Determines the optimization algorithm used to minimize the loss function during training. Common solvers include ‘adam’ (Adaptive Moment Estimation), ‘sgd’ (Stochastic Gradient Descent) and ‘adagrad’ (Adaptive Gradient Algorithm). The choice of solver affects training dynamics and convergence stability.</p>
+<p><strong>4 | Define alpha parameter (L2 regularization coefficient)</strong>
+Sets the L2 regularization strength to penalize large weights and reduce overfitting. A higher alpha value increases the regularization effect, promoting simpler, more generalizable models.</p>
+<p><strong>5 | Select batch size</strong>
+Specifies the number of samples processed before model weights are updated. Smaller batch sizes provide more stochastic updates and may help generalization, while larger batches lead to smoother convergence.</p>
+<p><strong>6 | Define initial learning rate</strong>
+Sets the initial step size for weight updates. This parameter controls how much the model’s parameters are adjusted at each iteration based on the gradient. Typical values are between 0.0001 and 0.01.</p>
+<p><strong>7 | Set maximum number of iterations</strong>
+Defines the total number of epochs (full passes through the training data). This determines how long the model is trained and directly affects both accuracy and computation time.</p>
+<p><strong>8 | Set random seed</strong>
+Specifies the random seed used for initialization and data shuffling. Ensures reproducibility of results across runs.</p>
+<p><strong>9 | Loss class weighting</strong>
+Determines whether to apply class weights during training to handle imbalanced datasets. When enabled (‘yes’), minority classes are given greater influence on the loss function to balance model learning.</p>
+<p><strong>10 | Early stopping</strong>
+Enables early stopping to automatically halt training when validation performance ceases to improve. This prevents overfitting and unnecessary computation.</p>
+<p><strong>11 | Patience</strong>
+Specifies the number of epochs to wait without improvement before triggering early stopping. Larger patience allows longer training before stopping.</p>
+<p><strong>12 | Select training loss function</strong>
+Defines the loss function used to optimize the model. The default is’categorical_crossentropy’ which measures the dissimilarity between the predicted class probabilities and the true class labels. It is commonly used in multi-class classification tasks, where the goal is to maximize the predicted probability of the correct class while minimizing that of the incorrect ones. Alternatively, kl_divergence (Kullback–Leibler divergence) measures how one probability distribution diverges from a second, expected probability distribution. In the context of neural networks, it quantifies how much the predicted probability distribution deviates from the true label distribution In addition, NeuroMiner allows importing TensorFlow model weights using a soft loss defined according to the same mathematical formulation as the optimization criterion selected (e.g., BAC, ACC, F1 score). This enables consistency between model optimization and Tensorflow internal parameter updates.</p>
+<p><strong>13 | Internal validation</strong>
+Indicates whether to reserve part of the training data for internal validation. When enabled, this subset is used to monitor validation loss and guide early stopping.</p>
+<p><strong>14 | Select validation fraction</strong>
+Sets the proportion of training data used for internal validation (e.g., 0.1 = 10%). The remaining data is used for model training.</p>
+<p><strong>15 | Predefined models from files (leave none if using parameters above)</strong>
+Only available in NeuroMiner expert mode (initialize with <em>nm expert</em>). This configuration allows to upload a Python function defining a Tensorflow flow model directly using Python code, such as <a class="reference external" href="https://www.tensorflow.org/guide/keras/sequential_model">sequential</a> API and <a class="reference external" href="https://www.tensorflow.org/guide/keras/functional_api">functional</a> API, the later allowing for the creation of more flexible models. If files are selected, the rest of the parameters (1 to 14) are ignored, and the hyperparameter space will include the models defined in the Python files.</p>
+<p>This feature also supports transfer learning, enabling users to load previously trained model weights into the defined architecture in Python. By doing so, it allows reusing or fine-tuning existing models on new datasets while maintaining the underlying learned representations.
+For more guidance on how to define models with files, see these <a class="reference external" href="https://github.com/neurominer-git/NeuroMiner_1.4/tree/gh-pages/Downloads/python_files/"><strong>Example files</strong></a>.</p>
+</div>
 </div>
 </div>
 
@@ -786,6 +841,7 @@ Limits the number of function evaluations during the optimization process. This 
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#random-forests-sklearn-randomforestclassifier">RANDOM FORESTS (sklearn RandomForestClassifier)</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gradient-boosting-sklearn-gradientboostingclassifier">GRADIENT BOOSTING (sklearn GradientBoostingClassifier)</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mlp-perceptron-sklearn-mlpclassifier">MLP PERCEPTRON (sklearn MLPClassifier)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#seqnn-tensorflow-sequential-model">SeqNN (TensorFlow Sequential Model)</a></li>
 </ul>
 </li>
 </ul>

@@ -410,7 +410,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
 </div></div>
       
     </div>
@@ -426,6 +428,14 @@ document.write(`
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#backprojection-permutation-inference-new-nm-1-4">Back‑projection &amp; permutation inference (NEW, NM 1.4)</a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -446,6 +456,23 @@ document.write(`
 <p>It is important to note that using PCA with this method will result in overly conservative p-values and is not recommended.</p>
 </div>
 <p>Additionally, If you would like to test the significance of covariate correction methods (e.g., site effects removal), there is an additional option to apply the permutation analyses to the covariates. For each permutation, the preprocessing is rerun with the permuted covariate values and then the models are retrained using the preprocessed features from different permutations. The significance calculation is the same as the labels and features permutation analyses described above. To use this method, please specify in the visualization options.</p>
+<div class="section" id="backprojection-permutation-inference-new-nm-1-4">
+<h2>Back‑projection &amp; permutation inference (NEW, NM 1.4)<a class="headerlink" href="#backprojection-permutation-inference-new-nm-1-4" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Aggregated mode</strong>: feature‑wise permutation test on the composite map (w_{\mathrm{agg}}).</p></li>
+<li><p><strong>Component‑wise mode</strong>: hierarchical selective‑inference —</p>
+<ol class="arabic simple">
+<li><p>select significant components in <strong>model space</strong> (FDR across components),</p></li>
+<li><p>test features <strong>within each selected component</strong> with permutation‑based p‑values and FDR <strong>per component</strong>.<br />
+To mirror selection under the null, NM applies rank‑matched top‑K or threshold‑matched selection on each permutation before computing feature statistics.</p></li>
+</ol>
+</li>
+</ul>
+<blockquote>
+<div><p>Tip: component‑wise tests avoid cross‑component cancellation and are often more sensitive than aggregated tests. See <a class="reference internal" href="4.6.11_visualization_pathways_backprojection.html"><span class="doc std std-doc">Visualization Pathways</span></a>.
+ ⁠</p>
+</div></blockquote>
+</div>
 </div>
 
     <script type="text/x-thebe-config">
@@ -506,6 +533,20 @@ document.write(`
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#backprojection-permutation-inference-new-nm-1-4">Back‑projection &amp; permutation inference (NEW, NM 1.4)</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>

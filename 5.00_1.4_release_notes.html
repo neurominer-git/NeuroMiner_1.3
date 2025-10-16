@@ -435,7 +435,10 @@ document.write(`
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#highlights">Highlights</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#compatibility">Compatibility</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#migration-tips">Migration tips</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#migration-tips">Migration tips</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#how-to-migrate-your-figures-quickly">How to migrate your figures quickly</a></li>
+</ul>
+</li>
 </ul>
             </nav>
         </div>
@@ -460,8 +463,8 @@ document.write(`
 <li><p><strong>New models</strong>: TensorFlow (classification &amp; regression)</p></li>
 <li><p><strong>Dimensionality reduction</strong>: new extraction range modes (<strong>geometric</strong>, <strong>power</strong>) and component‑matching (Hungarian algorithm)</p></li>
 <li><p><strong>Cross‑validation</strong>: <strong>small‑batch safeguards</strong> (drop n=1 batches, move N≤5 to test folds) + <strong>cycle generation log</strong></p></li>
-<li><p><strong>Preprocessing</strong>: robust <strong>F‑score</strong> (imbalance‑sensitive, bootstrap, mean/median, MEX), <strong>skewness correction</strong> (log‑based, Box‑Lambda, Yeo–Johnson), <strong>weight‑vector utilities</strong>, <strong>thresholding</strong></p></li>
-<li><p><strong>Nuisance correction</strong>: <strong>ComBat for unseen batches</strong></p></li>
+<li><p><strong>Preprocessing</strong>: robust <strong>F‑score</strong> (imbalance‑sensitive, bootstrap, mean/median, MEX), <strong>skewness correction</strong> (log‑based, Box‑Lambda, Yeo–Johnson), <strong>weight‑vector utilities</strong>, <strong>thresholding</strong>
+<strong>Nuisance correction</strong>: <strong>ComBat for unseen batches</strong> supporting external validation of model pipelines using ComBat correction.</p></li>
 <li><p><strong>Visualization</strong>: new <strong>Overlay NIfTI Viewer</strong>, calibration curves &amp; <strong>DCA</strong>, non‑imaging bar‑plot improvements, <strong>FeatureRelevanceGUI</strong> in Result Viewer</p></li>
 <li><p><strong>TensorFlow models</strong>:</p></li>
 </ul>
@@ -469,15 +472,28 @@ document.write(`
 <div class="section" id="compatibility">
 <h2>Compatibility<a class="headerlink" href="#compatibility" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
-<li><p>Fully backward compatible with NM 1.3 templates.</p></li>
+<li><p>NM structure, data input and training framework fully backward compatible with NM 1.3 templates.</p></li>
+<li><p>For visualisation and ensemble-based models, we recommend reinitialising analyses with the new settings.</p></li>
 </ul>
 </div>
 <div class="section" id="migration-tips">
 <h2>Migration tips<a class="headerlink" href="#migration-tips" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
-<li><p>Re‑run visualization steps to take advantage of calibration/DCA and the new viewer.</p></li>
-<li><p>If you used custom DR grids, consider switching to <strong>geometric</strong>/<strong>power</strong> ranges for better coverage with fewer points.</p></li>
+<li><p><strong>Re‑run visualization</strong> to take advantage of calibration/DCA and the new NIfTI viewer.</p></li>
+<li><p>If you used <strong>custom DR grids</strong>, consider switching to <strong>geometric/power</strong> ranges for broader coverage with fewer points.</p></li>
+<li><p><strong>Prefer component‑wise back‑projection for DR‑based models (PCA/ICA/NMF/PLS).</strong><br />
+Component‑wise maps preserve the latent structure and typically show <strong>higher sensitivity</strong> than aggregated maps, which can hide signal due to <strong>cross‑component covariance and sign cancellation</strong>. In symbols:
+(w_{\text{agg}}=\sum_{c} w_c,v_c) vs. (w^{(\text{backproj})}_c = w_c,v_c).
+In NM 1.4, feature‑level inference is performed <strong>within each discovered component</strong> with FDR control per component, and selection is mirrored under the null during permutation testing. See <strong>Visualization Pathways in NM 1.4</strong> for details. :contentReference[oaicite:0]{index=0}</p></li>
 </ul>
+<div class="section" id="how-to-migrate-your-figures-quickly">
+<h3>How to migrate your figures quickly<a class="headerlink" href="#how-to-migrate-your-figures-quickly" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Where you previously reported only an <strong>aggregated</strong> map, add a <strong>component‑wise</strong> panel (per significant component) and report per‑component q‑values.</p></li>
+<li><p>Enable <strong>component matching &amp; sign correction</strong> so the same component index refers to the same latent factor across CV folds.</p></li>
+<li><p>For multi‑modal work, add <strong>modality‑level</strong> and <strong>component×modality</strong> (L_p) shares to show where signal comes from. :contentReference[oaicite:1]{index=1}</p></li>
+</ul>
+</div>
 </div>
 </div>
 
@@ -550,7 +566,10 @@ document.write(`
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#highlights">Highlights</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#compatibility">Compatibility</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#migration-tips">Migration tips</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#migration-tips">Migration tips</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#how-to-migrate-your-figures-quickly">How to migrate your figures quickly</a></li>
+</ul>
+</li>
 </ul>
   </nav></div>
 
