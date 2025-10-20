@@ -497,7 +497,47 @@ document.write(`
 </div>
 <div class="section" id="specify-filter-type">
 <h3>3 | Specify filter type<a class="headerlink" href="#specify-filter-type" title="Permalink to this heading">#</a></h3>
-<p>Specify what filter will be used to obtain the feature sets. These methods are the same as in the <a class="reference internal" href="4.2.02_paramtemp_preprocessing_pipeline.html#preproc-rank-weight"><span class="std std-ref">preprocessing filter</span></a>.</p>
+<p>Specify what filter will be used to obtain the feature sets.</p>
+<ol class="arabic simple">
+<li><p>Mutual information-based (FEAST toolbox):
+Selects features with the highest shared information with the target variable.
+Implementation of the FEAST toolbox for feature selection
+(<a class="reference external" href="http://www.cs.man.ac.uk/~gbrown/fstoolbox/">site</a>).</p></li>
+<li><p>Maximum Relevance Minimum Redundancy (Peng et al): Pic
+ks features that are both relevant to the target and minimally redundant with each other.</p></li>
+<li><p><strong>Pearson / Spearman correlation</strong>:
+Ranks features based on their linear (Pearson) or monotonic (Spearman) correlation with the output.</p></li>
+<li><p>Simba (margin-based method):
+Scores features by how well they maximize class margins in a feature space.
+See <a class="reference external" href="http://www.cs.huji.ac.il/labs/learning/Papers/giladbachrachnavottishby04b.pdf">Gilad-Bachrach et al.
+(2004)</a>
+and
+<a class="reference external" href="http://www.cs.huji.ac.il/labs/learning/code/feature_selection.bak/">link</a></p></li>
+<li><p>G-flip (margin-based method):
+Evaluates features by flipping class margins to find discriminative feature subsets.
+See <a class="reference external" href="http://www.cs.huji.ac.il/labs/learning/Papers/giladbachrachnavottishby04b.pdf">Gilad-Bachrach et al.
+(2004)</a>
+and
+<a class="reference external" href="http://www.cs.huji.ac.il/labs/learning/code/feature_selection.bak/">site</a></p></li>
+<li><p>IMRelief (margin-based method):
+Uses instance-level weighting to assess feature importance based on local class margins.
+This is an implementation of the Yijun Sun IMRelief function called
+“IMRelief Sigmoid FastImplentation” (see <a class="reference external" href="http://plaza.ufl.edu/sunyijun/Paper/ICML06_1.pdf">Sun &amp; Li,
+2007</a>).</p></li>
+<li><p>Increasing feature subspace cardinality:
+Adds features one by one to find the optimal number for best model performance.</p></li>
+<li><p>Random subspace sampling:
+Randomly selects feature subsets to promote ensemble diversity and robustness.</p></li>
+<li><p>Relief for classification (margibn-based method):
+Assigns feature weights by how well they separate near-hit and near-miss instances.
+This is a version of the built-in MATLAB Relief algorithm
+<a class="reference external" href="https://de.mathworks.com/help/stats/relieff.html">(link</a>).</p></li>
+<li><p>F-Score:
+Ranks features by the ratio of between-class to within-class variance (signal-to-noise).
+Weights the features based on conducting an ANOVA using standard MATLAB functions on the differences between the groups when problem is classification.</p></li>
+<li><p>Bhattacharya distance:
+Measures feature discrimination based on the statistical distance between class distributions.</p></li>
+</ol>
 </div>
 <div class="section" id="define-minimum-number-of-features-to-be-selected">
 <h3>4 | Define minimum number of features to be selected<a class="headerlink" href="#define-minimum-number-of-features-to-be-selected" title="Permalink to this heading">#</a></h3>
