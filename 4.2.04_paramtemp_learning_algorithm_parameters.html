@@ -433,7 +433,19 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#new-in-nm-1-4-optimization-strategies">New in NM 1.4 — Optimization strategies</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#optimization-strategies">Optimization strategies</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#brute-force-optimization">Brute-force optimization</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#simulated-annealing-sa">Simulated Annealing (SA)</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#parameters">Parameters:</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bayesian-optimization-bo">Bayesian Optimization (BO)</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Parameters:</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#how-to-enable">How to enable</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#support-vector-machines-libsvm">SUPPORT VECTOR MACHINES (LIBSVM)</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#support-vector-machines-liblinear">SUPPORT VECTOR MACHINES (LIBLINEAR)</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#glmnet-hastie-s-library-for-lasso-elastic-net-regularized-glms">GLMNET (Hastie’s library for LASSO/Elastic-net regularized GLMs)</a></li>
@@ -459,15 +471,57 @@ document.write(`
 <p>Parameters for a learning algorithm determine the way that the model is fitted to the data. A common example is the ”C” or ”slack” parameter for soft margin SVM that defines the penalty associated with misclassifying individuals – i.e., whether the model does not allow any error within the CV1 folds and very tightly fits the decision boundary, or whether it allows errors in order to improve generalizability. Therefore, parameters such as these can greatly affect the model performance and it is common practice in machine learning to optimize the parameters for your specific problem and data.</p>
 <p>NeuroMiner was developed in order to optimize performance across pre-defined parameter ranges within the nested cross-validation framework using a gridsearch, which protects against overfitting due to the application of the trained models to held-out data. Default parameter ranges are provided in NeuroMiner based on the literature and empirical testing, but we strongly recommend that the parameters are defined for your study and problem.</p>
 <p>As previously stated, NeuroMiner uses a dynamic menu configuration that changes based on previous input. This is also true for the learning algorithm parameters, whereby the menu options will change based on what you have selected in the ”Classification algorithm” section.</p>
-<div class="section" id="new-in-nm-1-4-optimization-strategies">
-<h2>New in NM 1.4 — Optimization strategies<a class="headerlink" href="#new-in-nm-1-4-optimization-strategies" title="Permalink to this heading">#</a></h2>
-<p><strong>Simulated Annealing &amp; Bayesian Optimization</strong><br />
-In addition to grid/random search, NM 1.4 supports:</p>
-<ul class="simple">
-<li><p><strong>Simulated Annealing (SA):</strong> global, temperature‑controlled search that can escape local optima. Recommended for large, rugged hyperparameter spaces.</p></li>
-<li><p><strong>Bayesian Optimization (BO):</strong> surrogate‑model search (Gaussian Process or Tree‑based) that trades off exploration vs. exploitation via an acquisition function.</p></li>
-</ul>
-<p><strong>How to enable</strong></p>
+<div class="section" id="optimization-strategies">
+<h2>Optimization strategies<a class="headerlink" href="#optimization-strategies" title="Permalink to this heading">#</a></h2>
+<p>NeuroMiner offers several strategies for finding the optimal hyperparameters for your chosen learning algorithm. While a simple grid search is thorough, it can be computationally expensive. For complex models or large search spaces, more intelligent strategies can find better solutions in less time.</p>
+<div class="section" id="brute-force-optimization">
+<h3>Brute-force optimization<a class="headerlink" href="#brute-force-optimization" title="Permalink to this heading">#</a></h3>
+<p>Brute-force optimization, also known as a grid search, is a straightforward and exhaustive method for tuning a model’s hyperparameters. Hyperparameters are the “settings” of a learning algorithm that are not learned from the data itself but are set by the user beforehand (e.g., the cost C of an SVM).</p>
+<p>The goal of this method is to find the combination of hyperparameters that results in the best model performance.</p>
+<p>How it works: Think of tuning a radio by methodically turning the frequency and volume knobs. Brute-force optimization does something similar:</p>
+<p>Define a Grid: The user specifies a list, or “grid,” of possible values for each hyperparameter they want to tune. For example, for an SVM, you might test C = [0.1, 1, 10, 100] and gamma = [0.01, 0.1].</p>
+<p>Exhaustive Search: The algorithm then systematically trains and evaluates a model for every single combination of these values. In the example above, it would test 8 different models (4 values for C × 2 values for gamma).</p>
+<p>Select the Best: The combination of hyperparameters that achieves the best performance within the inner cross-validation loop (CV1) is selected as the “optimal” set.</p>
+<p>This optimal set of parameters is then used to train the final model that will be evaluated on the held-out test data (CV2). While this method is computationally expensive, its “brute-force” nature guarantees that the best combination within the specified grid will be found.</p>
+</div>
+<div class="section" id="simulated-annealing-sa">
+<h3>Simulated Annealing (SA)<a class="headerlink" href="#simulated-annealing-sa" title="Permalink to this heading">#</a></h3>
+<p>Simulated Annealing is a sophisticated optimization algorithm inspired by the process of annealing in metallurgy, where a material is heated and then slowly cooled to strengthen it. In machine learning, it’s a powerful method for navigating large and complex hyperparameter spaces to find a global optimum without getting stuck in local optima.</p>
+<p>How it Works: The algorithm starts at a random point in the hyperparameter space. At each step, it considers a new, nearby point. If the new point yields better performance, it’s accepted. If it’s worse, it might still be accepted with a certain probability. This probability is controlled by a “temperature” parameter:</p>
+<p>At a high temperature, the algorithm is very likely to accept worse solutions, allowing it to “jump” out of local optima and explore the search space broadly.</p>
+<p>As the temperature slowly cools, the algorithm becomes less likely to accept worse solutions, eventually converging on a high-performing region.</p>
+<p>When to Use It: SA is highly recommended when your hyperparameter search space is very large, non-convex, or when you suspect there are many local optima where a simple search could get stuck. It is more efficient than a grid search for exploring high-dimensional spaces.</p>
+<div class="section" id="parameters">
+<h4>Parameters:<a class="headerlink" href="#parameters" title="Permalink to this heading">#</a></h4>
+<p>Initial temperature: Controls the initial probability of accepting a worse-performing set of hyperparameters. A higher temperature encourages broader exploration at the start.</p>
+<p>Max initial step size: Defines how “far” the algorithm can jump in the hyperparameter grid at the beginning of the search.</p>
+<p>Cooling factor (alpha): A value typically between 0.8 and 0.99 that determines the rate of cooling. The temperature at each step is multiplied by this factor (e.g., T_new = T_old * 0.95). A value closer to 1.0 results in a slower, more thorough search.</p>
+<p>Random jump probability: The probability (e.g., 0.1 for 10%) of making a completely random jump to a new part of the search space, which helps prevent the search from getting permanently trapped.</p>
+<p>Maximum number of iterations: The total “budget” of model evaluations the algorithm is allowed to perform.</p>
+<p>Reheating iterations &amp; factor: If performance does not improve for a specified number of iterations, the algorithm can “reheat” (increase the temperature) to start exploring more broadly again.</p>
+</div>
+</div>
+<div class="section" id="bayesian-optimization-bo">
+<h3>Bayesian Optimization (BO)<a class="headerlink" href="#bayesian-optimization-bo" title="Permalink to this heading">#</a></h3>
+<p>Bayesian Optimization is an intelligent, sample-efficient strategy for finding the maximum of an objective function—in this case, the model’s performance. It’s particularly effective when each model evaluation is computationally expensive (e.g., training a deep neural network).</p>
+<p>How it Works: Instead of searching blindly, BO builds a probabilistic model (a “surrogate”) of the relationship between hyperparameters and performance. Think of it like a smart geologist drilling for oil:</p>
+<p>Initial Sampling: It starts by evaluating a few random hyperparameter combinations (Number of seed iterations).</p>
+<p>Build a Map: It uses these initial results to build a surrogate model (typically a Gaussian Process) that predicts performance and uncertainty across the entire search space.</p>
+<p>Intelligent Selection: It then uses an “acquisition function” to decide the most promising point to evaluate next. This function balances exploitation (checking areas the model predicts will be good) and exploration (checking areas where the model is most uncertain).</p>
+<p>Update and Repeat: After evaluating the new point, it updates its surrogate model with the new information and repeats the process, getting progressively more accurate.</p>
+<p>When to Use It: BO is the preferred method when model training is time-consuming. It can often find a near-optimal set of hyperparameters in significantly fewer iterations than both grid search and simulated annealing.</p>
+<div class="section" id="id2">
+<h4>Parameters:<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h4>
+<p>Maximum number of iterations: The total budget of model evaluations.</p>
+<p>Max iterations without change: An early-stopping criterion. The optimization will halt if the best-found performance does not improve for this many iterations.</p>
+<p>Number of seed iterations: The number of random points to evaluate before the intelligent Bayesian search begins. A value between 10-20 is often a good starting point to build a reasonable initial model.</p>
+<p>Kernel function: This defines the behavior of the Gaussian Process surrogate model.</p>
+<p>Squared Exponential / Matern: These are common, powerful choices. Matern kernels are often more flexible for complex, less smooth functions.</p>
+<p>ARD (Automatic Relevance Determination): Suffixes like ardsquaredexponential enable a feature where the model can automatically learn the relative importance of different hyperparameters, which is very useful in high-dimensional spaces.</p>
+</div>
+</div>
+<div class="section" id="how-to-enable">
+<h3>How to enable<a class="headerlink" href="#how-to-enable" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>In <em>Learning algorithm parameters</em> → <strong>Specify cross‑parameter model selection process</strong>, choose <strong>Simulated annealing</strong> or <strong>Bayesian optimization</strong>.</p></li>
 <li><p>Define a <strong>budget</strong> (max evaluations), optional <strong>early‑stopping</strong>, and <strong>target metric</strong> (AUC/BAC/MSE/…).</p></li>
@@ -480,6 +534,7 @@ In addition to grid/random search, NM 1.4 supports:</p>
 <blockquote>
 <div><p>NM 1.4 applies SA/BO consistently for <strong>binary</strong>, <strong>regression</strong>, and <strong>multi‑class</strong> setups.</p>
 </div></blockquote>
+</div>
 </div>
 <div class="section" id="support-vector-machines-libsvm">
 <h2>SUPPORT VECTOR MACHINES (LIBSVM)<a class="headerlink" href="#support-vector-machines-libsvm" title="Permalink to this heading">#</a></h2>
@@ -834,7 +889,19 @@ For more guidance on how to define models with files, see these <a class="refere
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#new-in-nm-1-4-optimization-strategies">New in NM 1.4 — Optimization strategies</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#optimization-strategies">Optimization strategies</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#brute-force-optimization">Brute-force optimization</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#simulated-annealing-sa">Simulated Annealing (SA)</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#parameters">Parameters:</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bayesian-optimization-bo">Bayesian Optimization (BO)</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Parameters:</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#how-to-enable">How to enable</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#support-vector-machines-libsvm">SUPPORT VECTOR MACHINES (LIBSVM)</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#support-vector-machines-liblinear">SUPPORT VECTOR MACHINES (LIBLINEAR)</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#glmnet-hastie-s-library-for-lasso-elastic-net-regularized-glms">GLMNET (Hastie’s library for LASSO/Elastic-net regularized GLMs)</a></li>
