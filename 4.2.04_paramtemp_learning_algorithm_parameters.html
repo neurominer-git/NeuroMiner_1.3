@@ -443,7 +443,6 @@ document.write(`
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Parameters:</a></li>
 </ul>
 </li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#how-to-enable">How to enable</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#support-vector-machines-libsvm">SUPPORT VECTOR MACHINES (LIBSVM)</a><ul class="nav section-nav flex-column">
@@ -524,25 +523,10 @@ document.write(`
 <li><p>Squared Exponential / Matern: These are common, powerful choices. Matern kernels are often more flexible for complex, less smooth functions.</p></li>
 <li><p>ARD (Automatic Relevance Determination): ARD (Automatic Relevance Determination) modifies standard kernels (like the ‘squared exponential’) into versions that can automatically learn the relative importance of different input features. Such ARD-enabled versions are very useful in high-dimensional spaces.</p></li>
 </ul>
-</div>
-</div>
-<div class="section" id="how-to-enable">
-<h3>How to enable<a class="headerlink" href="#how-to-enable" title="Permalink to this heading">#</a></h3>
-<ul class="simple">
-<li><p>In <em>Learning algorithm parameters</em> → <strong>Specify cross‑parameter model selection process</strong>, choose <strong>Simulated annealing</strong> or <strong>Bayesian optimization</strong>.</p></li>
-<li><p>Define a <strong>budget</strong> (max evaluations), optional <strong>early‑stopping</strong>, and <strong>target metric</strong> (AUC/BAC/MSE/…).</p></li>
-</ul>
-<p><strong>Tips</strong></p>
-<ul class="simple">
-<li><p>SA: start with a higher temperature and set a cooling schedule; allow occasional uphill moves early.</p></li>
-<li><p>BO: set realistic bounds; start with 10–20 random points; use CV1 score as the objective.</p></li>
-</ul>
-<blockquote>
-<div><p>NM 1.4 applies SA/BO consistently for <strong>binary</strong>, <strong>regression</strong>, and <strong>multi‑class</strong> setups.</p>
-</div></blockquote>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>You’ll need the Statistics &amp; Machine Learning Toolbox to use Bayesian Optimization.</p>
+<p>You’ll need the Statistics &amp; Machine Learning Toolbox to use Bayesian Optimization or Simulated Annealing.</p>
+</div>
 </div>
 </div>
 </div>
@@ -909,7 +893,6 @@ For more guidance on how to define models with files, see these <a class="refere
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Parameters:</a></li>
 </ul>
 </li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#how-to-enable">How to enable</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#support-vector-machines-libsvm">SUPPORT VECTOR MACHINES (LIBSVM)</a><ul class="nav section-nav flex-column">
