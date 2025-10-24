@@ -493,12 +493,14 @@ document.write(`
 <p>When to Use It: SA is highly recommended when your hyperparameter search space is very large, non-convex, or when you suspect there are many local optima where a simple search could get stuck. It is more efficient than a grid search for exploring high-dimensional spaces.</p>
 <div class="section" id="parameters">
 <h4>Parameters:<a class="headerlink" href="#parameters" title="Permalink to this heading">#</a></h4>
-<p>Initial temperature: Controls the initial probability of accepting a worse-performing set of hyperparameters. A higher temperature encourages broader exploration at the start.</p>
-<p>Max initial step size: Defines how “far” the algorithm can jump in the hyperparameter grid at the beginning of the search.</p>
-<p>Cooling factor (alpha): A value typically between 0.8 and 0.99 that determines the rate of cooling. The temperature at each step is multiplied by this factor (e.g., T_new = T_old * 0.95). A value closer to 1.0 results in a slower, more thorough search.</p>
-<p>Random jump probability: The probability (e.g., 0.1 for 10%) of making a completely random jump to a new part of the search space, which helps prevent the search from getting permanently trapped.</p>
-<p>Maximum number of iterations: The total “budget” of model evaluations the algorithm is allowed to perform.</p>
-<p>Reheating iterations &amp; factor: If performance does not improve for a specified number of iterations, the algorithm can “reheat” (increase the temperature) to start exploring more broadly again.</p>
+<ol class="arabic simple">
+<li><p>Initial temperature: Controls the initial probability of accepting a worse-performing set of hyperparameters. A higher temperature encourages broader exploration at the start.</p></li>
+<li><p>Max initial step size: Defines how “far” the algorithm can jump in the hyperparameter grid at the beginning of the search.</p></li>
+<li><p>Cooling factor (alpha): A value typically between 0.8 and 0.99 that determines the rate of cooling. The temperature at each step is multiplied by this factor (e.g., T_new = T_old * 0.95). A value closer to 1.0 results in a slower, more thorough search.</p></li>
+<li><p>Random jump probability: The probability (e.g., 0.1 for 10%) of making a completely random jump to a new part of the search space, which helps prevent the search from getting permanently trapped.</p></li>
+<li><p>Maximum number of iterations: The total “budget” of model evaluations the algorithm is allowed to perform.</p></li>
+<li><p>Reheating iterations &amp; factor: If performance does not improve for a specified number of iterations, the algorithm can “reheat” (increase the temperature) to start exploring more broadly again.</p></li>
+</ol>
 </div>
 </div>
 <div class="section" id="bayesian-optimization-bo">
@@ -512,12 +514,16 @@ document.write(`
 <p>When to Use It: BO is the preferred method when model training is time-consuming. It can often find a near-optimal set of hyperparameters in significantly fewer iterations than both grid search and simulated annealing.</p>
 <div class="section" id="id2">
 <h4>Parameters:<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h4>
-<p>Maximum number of iterations: The total budget of model evaluations.</p>
-<p>Max iterations without change: An early-stopping criterion. The optimization will halt if the best-found performance does not improve for this many iterations.</p>
-<p>Number of seed iterations: The number of random points to evaluate before the intelligent Bayesian search begins. A value between 10-20 is often a good starting point to build a reasonable initial model.</p>
-<p>Kernel function: This defines the behavior of the Gaussian Process surrogate model.</p>
-<p>Squared Exponential / Matern: These are common, powerful choices. Matern kernels are often more flexible for complex, less smooth functions.</p>
-<p>ARD (Automatic Relevance Determination): Suffixes like ardsquaredexponential enable a feature where the model can automatically learn the relative importance of different hyperparameters, which is very useful in high-dimensional spaces.</p>
+<ol class="arabic simple">
+<li><p>Maximum number of iterations: The total budget of model evaluations.</p></li>
+<li><p>Max iterations without change: An early-stopping criterion. The optimization will halt if the best-found performance does not improve for this many iterations.</p></li>
+<li><p>Number of seed iterations: The number of random points to evaluate before the intelligent Bayesian search begins. A value between 10-20 is often a good starting point to build a reasonable initial model.</p></li>
+<li><p>Kernel function: This defines the behavior of the Gaussian Process surrogate model.</p></li>
+</ol>
+<ul class="simple">
+<li><p>Squared Exponential / Matern: These are common, powerful choices. Matern kernels are often more flexible for complex, less smooth functions.</p></li>
+<li><p>ARD (Automatic Relevance Determination): ARD (Automatic Relevance Determination) modifies standard kernels (like the ‘squared exponential’) into versions that can automatically learn the relative importance of different input features. Such ARD-enabled versions are very useful in high-dimensional spaces.</p></li>
+</ul>
 </div>
 </div>
 <div class="section" id="how-to-enable">
@@ -534,6 +540,10 @@ document.write(`
 <blockquote>
 <div><p>NM 1.4 applies SA/BO consistently for <strong>binary</strong>, <strong>regression</strong>, and <strong>multi‑class</strong> setups.</p>
 </div></blockquote>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You’ll need the Statistics &amp; Machine Learning Toolbox to use Bayesian Optimization.</p>
+</div>
 </div>
 </div>
 <div class="section" id="support-vector-machines-libsvm">
