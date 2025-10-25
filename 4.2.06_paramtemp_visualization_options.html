@@ -8,7 +8,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Visualization options &#8212; NeuroMiner Manual</title>
+    <title>Visualization Options &#8212; NeuroMiner Manual</title>
   
   
   
@@ -194,7 +194,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l2"><a class="reference internal" href="4.2.03_paramtemp_classification_algorithm.html">Classification algorithm</a></li>
 <li class="toctree-l2"><a class="reference internal" href="4.2.04_paramtemp_learning_algorithm_parameters.html">Learning algorithm parameters</a></li>
 <li class="toctree-l2"><a class="reference internal" href="4.2.05_paramtemp_ensemble_generation_strategies.html">Ensemble generation strategies</a></li>
-<li class="toctree-l2 current active"><a class="current reference internal" href="#">Visualization options</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Visualization Options</a></li>
 <li class="toctree-l2"><a class="reference internal" href="4.2.07_paramtemp_interpretation_options.html">Prediction interpretation options</a></li>
 
 <li class="toctree-l2"><a class="reference internal" href="4.2.08_paramtemp_model_saving_options.html">Model saving options</a></li>
@@ -423,7 +423,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Visualization options</h1>
+    <h1>Visualization Options</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -433,7 +433,13 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#backprojection-permutation-inference-new-nm-1-4">Back‑projection &amp; permutation inference (NEW, NM 1.4)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#weight-vector-normalization">1. Weight Vector Normalization</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#permutation-analysis-for-statistical-inference">2. Permutation Analysis for Statistical Inference</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#path-a-aggregated-mode-input-space-test">Path A: Aggregated Mode (Input-Space Test)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#path-b-component-wise-mode-model-space-test">Path B: Component-Wise Mode (Model-Space Test)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#common-permutation-settings">3. Common Permutation Settings</a></li>
 </ul>
             </nav>
         </div>
@@ -446,32 +452,73 @@ document.write(`
                 <article class="bd-article" role="main">
                   
   <div class="tex2jax_ignore mathjax_ignore section" id="visualization-options">
-<span id="paramtemp-visualization-options"></span><h1>Visualization options<a class="headerlink" href="#visualization-options" title="Permalink to this heading">#</a></h1>
-<p>In NeuroMiner, visualization refers to the representation of the model weights for each feature. In the case of neuroimaging, this means that the brain maps are ’visualized’. This setting gives the user the option to derive Z scores and P values using permutation analysis.</p>
-<p>The magnitude of the feature weights do not necessarily inform the user about the statistical significance (i.e., the degree to which the result may replicate)(see <a class="reference external" href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3767485/">Bilwaj &amp; Davatsikos, 2013</a>]). To do this, permutation analyses can be conducted to create an empirical null distribution of weights for each feature and then the observed weight is compared to this distribution. This is described in the supplementary material of <a class="reference external" href="https://www.thelancet.com/journals/lanpsy/article/PIIS2215-0366(16)30171-7/supplemental">Koutsouleris et al. (2016)</a>.</p>
-<p>The method is based on <a class="reference external" href="https://nmr.mgh.harvard.edu/~fischl/reprints/golland-fischl-ipmi03.pdf">Golland &amp; Fischl (2003)</a> and involves the permutation of the outcome labels, features, or both. For each permutation, the models are retrained in the cross-validation framework using the respective feature/label subsets obtained from the observed-label analyses. For each permutation, the predictions are accumulated from the random models into a permuted ensemble prediction for each CV2 subject. Thus, a null distribution of out-of-training classification performance (BAC) for the prediction models is constructed. The significance of the observed out-of-training BAC is calculated as the number of events where the permuted out-of-training BAC is higher or equal to the observed BAC divided by the number of permutations performed. The significance of the model can then be determined by using a p-threshold (e.g., p&gt;0.05).</p>
-<p>When the option is selected, you will be prompted to enter the number of permutations conducted (this will be dependent on sample size, analysis complexity, and computational time) and then whether you would like to have the labels, the features, or both permuted (see <a class="reference external" href="https://nmr.mgh.harvard.edu/~fischl/reprints/golland-fischl-ipmi03.pdf">Golland &amp; Fischl, 2003</a> for details).</p>
-<div class="admonition important">
-<p class="admonition-title">Important</p>
-<p>It is important to note that using PCA with this method will result in overly conservative p-values and is not recommended.</p>
-</div>
-<p>Additionally, If you would like to test the significance of covariate correction methods (e.g., site effects removal), there is an additional option to apply the permutation analyses to the covariates. For each permutation, the preprocessing is rerun with the permuted covariate values and then the models are retrained using the preprocessed features from different permutations. The significance calculation is the same as the labels and features permutation analyses described above. To use this method, please specify in the visualization options.</p>
-<div class="section" id="backprojection-permutation-inference-new-nm-1-4">
-<h2>Back‑projection &amp; permutation inference (NEW, NM 1.4)<a class="headerlink" href="#backprojection-permutation-inference-new-nm-1-4" title="Permalink to this heading">#</a></h2>
+<span id="paramtemp-visualization-options"></span><h1>Visualization Options<a class="headerlink" href="#visualization-options" title="Permalink to this heading">#</a></h1>
+<p>In NeuroMiner, “visualization” refers to generating and inspecting the model weights, which are often represented as brain maps. This configuration menu allows you to set parameters for two distinct processes: <strong>weight vector normalization</strong> and <strong>statistical inference</strong> via permutation analysis.</p>
+<div class="section" id="weight-vector-normalization">
+<h2>1. Weight Vector Normalization<a class="headerlink" href="#weight-vector-normalization" title="Permalink to this heading">#</a></h2>
+<p>This option allows you to normalize the weight vectors before they are visualized.</p>
 <ul class="simple">
-<li><p><strong>Aggregated mode</strong>: feature‑wise permutation test on the composite map (w_{\mathrm{agg}}).</p></li>
-<li><p><strong>Component‑wise mode</strong>: hierarchical selective‑inference —</p>
+<li><p><strong>Menu Option:</strong> <code class="docutils literal notranslate"><span class="pre">Normalize</span> <span class="pre">weight</span> <span class="pre">vectors</span></code></p></li>
+<li><p><strong>Availability:</strong> This toggle only appears if you are using an <strong>LIBSVM</strong> or <strong>LIBLIN</strong> SVM program, as specified in your training parameters.</p></li>
+<li><p><strong>Function:</strong> Toggles whether normalization is applied (Yes/No). The default is <strong>No</strong>.</p></li>
+</ul>
+</div>
+<hr class="docutils" />
+<div class="section" id="permutation-analysis-for-statistical-inference">
+<h2>2. Permutation Analysis for Statistical Inference<a class="headerlink" href="#permutation-analysis-for-statistical-inference" title="Permalink to this heading">#</a></h2>
+<p>The magnitude of feature weights does not directly inform you of their statistical significance (i.e., how likely they are to replicate). To assess this, you can perform a permutation analysis to create an empirical null distribution of weights for each feature. The observed weight is then compared to this distribution to derive Z-scores and P-values.</p>
+<p>This method involves permuting outcome labels, features, or covariates. For each permutation, the models are retrained, and a null distribution of performance (e.g., BAC) and feature weights is constructed. The significance of the observed results is then calculated by comparing them to this null distribution.</p>
+<p>The configuration menu presents two primary modes for this analysis, depending on whether dimensionality reduction (e.g., PCA) is used in your preprocessing pipeline.</p>
+<div class="section" id="path-a-aggregated-mode-input-space-test">
+<h3>Path A: Aggregated Mode (Input-Space Test)<a class="headerlink" href="#path-a-aggregated-mode-input-space-test" title="Permalink to this heading">#</a></h3>
+<p>This is the standard, “classic” permutation test performed directly on the feature weights in the original input space.</p>
+<ul class="simple">
+<li><p><strong>Menu Option:</strong> <code class="docutils literal notranslate"><span class="pre">Perform</span> <span class="pre">permutation</span> <span class="pre">test</span> <span class="pre">in</span> <span class="pre">input</span> <span class="pre">space</span></code></p></li>
+<li><p><strong>Function:</strong> This toggles the standard permutation test <strong>on</strong> or <strong>off</strong>.</p></li>
+<li><p><strong>Use Case:</strong> This method is appropriate when <strong>no dimensionality reduction</strong> is applied.</p></li>
+</ul>
+<blockquote>
+<div><p><strong>Important:</strong> Using this aggregated mode when dimensionality reduction (like PCA) is part of your pipeline is <strong>not recommended</strong>, as it can lead to overly conservative and inaccurate p-values. For such cases, use Path B.</p>
+</div></blockquote>
+</div>
+<div class="section" id="path-b-component-wise-mode-model-space-test">
+<h3>Path B: Component-Wise Mode (Model-Space Test)<a class="headerlink" href="#path-b-component-wise-mode-model-space-test" title="Permalink to this heading">#</a></h3>
+<p>This hierarchical, selective-inference mode is designed specifically for pipelines that <strong>include dimensionality reduction</strong>.</p>
+<ul class="simple">
+<li><p><strong>Menu Option:</strong> <code class="docutils literal notranslate"><span class="pre">Perform</span> <span class="pre">model</span> <span class="pre">permutation</span> <span class="pre">test</span> <span class="pre">in</span> <span class="pre">model</span> <span class="pre">space</span> <span class="pre">and</span> <span class="pre">back-project</span> <span class="pre">only</span> <span class="pre">signif.</span> <span class="pre">components</span></code></p></li>
+<li><p><strong>Availability:</strong> This option <strong>only appears</strong> if dimensionality reduction (e.g., PCA, PLS) is detected in your preprocessing steps.</p></li>
+<li><p><strong>Function:</strong> This test operates in two stages:</p>
 <ol class="arabic simple">
-<li><p>select significant components in <strong>model space</strong> (FDR across components),</p></li>
-<li><p>test features <strong>within each selected component</strong> with permutation‑based p‑values and FDR <strong>per component</strong>.<br />
-To mirror selection under the null, NM applies rank‑matched top‑K or threshold‑matched selection on each permutation before computing feature statistics.</p></li>
+<li><p><strong>Model-Space Test:</strong> A permutation test is performed on the <em>components</em> in the reduced-dimension “model space” to see which components significantly contribute to the model.</p></li>
+<li><p><strong>Selective Back-Projection:</strong> Only the components that pass a statistical threshold are used to “back-project” the weights into the original “input space.” This avoids cross-component cancellation and is often more sensitive.</p></li>
 </ol>
 </li>
 </ul>
-<blockquote>
-<div><p>Tip: component‑wise tests avoid cross‑component cancellation and are often more sensitive than aggregated tests. See <a class="reference internal" href="4.6.11_visualization_pathways_backprojection.html"><span class="doc std std-doc">Visualization Pathways</span></a>.
- ⁠</p>
-</div></blockquote>
+<p>When this mode is enabled, you will see the following sub-options:</p>
+<ul class="simple">
+<li><p><strong>Define back-projection significance threshold:</strong> Sets the p-value (e.g., 0.05) used to determine if a component is significant enough to be back-projected.</p></li>
+<li><p><strong>Correct component P values for multiple comparisons using FDR:</strong> Toggles whether to apply a False Discovery Rate correction across the components before selection.</p></li>
+<li><p><strong>Perform additional permutation test… in input-space:</strong> After the significant components are selected and back-projected, you can optionally run a <em>second</em>, standard input-space permutation test on this new, sparser map.</p></li>
+</ul>
+</div>
+</div>
+<hr class="docutils" />
+<div class="section" id="common-permutation-settings">
+<h2>3. Common Permutation Settings<a class="headerlink" href="#common-permutation-settings" title="Permalink to this heading">#</a></h2>
+<p>When <em>either</em> Path A or Path B is enabled, you must define the parameters for the permutation analysis itself:</p>
+<ul class="simple">
+<li><p><strong>Define no. of permutations:</strong>
+Sets the number of permutation repetitions to build the null distribution. A higher number is more robust but computationally expensive (e.g., 5000).</p></li>
+<li><p><strong>Define permutation mode:</strong>
+Specifies <em>what</em> to permute, as described by <a class="reference external" href="https://nmr.mgh.harvard.edu/~fischl/reprints/golland-fischl-ipmi03.pdf">Golland &amp; Fischl (2003)</a>:</p>
+<ul>
+<li><p><strong>Labels:</strong> (Default) Permutes the outcome labels (e.g., patient/control).</p></li>
+<li><p><strong>Features (within-label):</strong> Permutes features <em>within</em> each class, preserving class structure.</p></li>
+<li><p><strong>Labels &amp; Features:</strong> Permutes both.</p></li>
+<li><p><strong>Covariate(s):</strong> This is an <strong>EXPERT</strong> option that only appears if covariates are defined. It tests the significance of covariate correction methods (e.g., site-effect removal). For each permutation, the preprocessing is re-run with permuted covariate values before models are retrained. If selected, you will be prompted to choose which covariates to permute.</p></li>
+</ul>
+</li>
+</ul>
 </div>
 </div>
 
@@ -542,7 +589,13 @@ To mirror selection under the null, NM applies rank‑matched top‑K or thresho
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#backprojection-permutation-inference-new-nm-1-4">Back‑projection &amp; permutation inference (NEW, NM 1.4)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#weight-vector-normalization">1. Weight Vector Normalization</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#permutation-analysis-for-statistical-inference">2. Permutation Analysis for Statistical Inference</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#path-a-aggregated-mode-input-space-test">Path A: Aggregated Mode (Input-Space Test)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#path-b-component-wise-mode-model-space-test">Path B: Component-Wise Mode (Model-Space Test)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#common-permutation-settings">3. Common Permutation Settings</a></li>
 </ul>
   </nav></div>
 

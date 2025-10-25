@@ -194,7 +194,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l2"><a class="reference internal" href="4.2.03_paramtemp_classification_algorithm.html">Classification algorithm</a></li>
 <li class="toctree-l2"><a class="reference internal" href="4.2.04_paramtemp_learning_algorithm_parameters.html">Learning algorithm parameters</a></li>
 <li class="toctree-l2"><a class="reference internal" href="4.2.05_paramtemp_ensemble_generation_strategies.html">Ensemble generation strategies</a></li>
-<li class="toctree-l2"><a class="reference internal" href="4.2.06_paramtemp_visualization_options.html">Visualization options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="4.2.06_paramtemp_visualization_options.html">Visualization Options</a></li>
 <li class="toctree-l2"><a class="reference internal" href="4.2.07_paramtemp_interpretation_options.html">Prediction interpretation options</a></li>
 
 <li class="toctree-l2"><a class="reference internal" href="4.2.08_paramtemp_model_saving_options.html">Model saving options</a></li>
@@ -442,7 +442,12 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#model-selection-frequency">Model selection frequency</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#multi-group-results">Multi-group results</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#scores-probabilities-calibration-nm-1-4">Scores –&gt; Probabilities &amp; Calibration (NM 1.4)</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#calibration-methods">1. Calibration Methods</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#calibration-methods">1. Calibration Methods</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#platt-scaling">Platt Scaling</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isotonic-regression">Isotonic Regression</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#bayesian-binning-into-quantiles-bbq">Bayesian Binning into Quantiles (BBQ)</a></li>
+</ul>
+</li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#recompute-calibration">2. Recompute Calibration</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#offset-removal-oocv-only">3. Offset Removal (OOCV Only)</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#automatic-behavior">Automatic Behavior</a></li>
@@ -561,30 +566,30 @@ document.write(`
 <h2>Scores –&gt; Probabilities &amp; Calibration (NM 1.4)<a class="headerlink" href="#scores-probabilities-calibration-nm-1-4" title="Permalink to this heading">#</a></h2>
 <p>Many machine learning models, such as Support Vector Machines (SVMs), produce decision scores rather than probabilities. While these scores are excellent for ranking subjects (e.g., who is most likely to be a patient), they are not well-calibrated. A score of “0.8” does not mean there is an 80% chance of being in the positive class.</p>
 <p>Probability calibration is a post-processing step that corrects this. It builds a mapping model that converts these arbitrary decision scores into probabilities. A well-calibrated model is one where a prediction of “80% probability” means that, out of all cases given that score, 80% of them actually belong to the positive class.</p>
-<p>NeuroMiner applies this calibration by training a calibration model on the CV1 training scores and then applying it to the CV1/CV2 test scores. It offers three distinct methods for this transformation. If you want to convert scores to probabilities in the classification plot and export them, press <strong>Scores –&gt; Probabilities</strong>. Probability scores will be appended to the Output .csv File which you can export by clicking <strong>E</strong> next to the classifciation plot after calibration. To check the quality of calibration of the model, press <strong>Calibration</strong>.</p>
+<p>NeuroMiner applies this calibration by training a calibration model on the CV1 training scores and then applying it to the CV1/CV2 test scores. It offers three distinct methods for this transformation. If you want to convert scores to probabilities in the classification plot and export them, press <strong>Scores –&gt; Probabilities</strong>. Probability scores will be appended to the Output.csv File which you can export by clicking <strong>E</strong> next to the classification plot after calibration. To check the quality of calibration of the model, press <strong>Calibration</strong>.</p>
 <div class="section" id="calibration-methods">
 <h3>1. Calibration Methods<a class="headerlink" href="#calibration-methods" title="Permalink to this heading">#</a></h3>
-<ol class="arabic simple">
-<li><p>Platt Scaling</p></li>
-</ol>
+<div class="section" id="platt-scaling">
+<h4>Platt Scaling<a class="headerlink" href="#platt-scaling" title="Permalink to this heading">#</a></h4>
 <p>This method fits a simple logistic regression (sigmoid) model to the classifier’s output scores. It assumes that there is a sigmoidal relationship between the scores and the true probabilities.</p>
 <p><strong>How it Works</strong>: It learns an S-shaped curve to map scores onto the [0, 1] probability interval.</p>
 <p><strong>Pros</strong>: It’s a parametric method, making it robust and less prone to overfitting, especially on smaller datasets. The NeuroMiner implementation also automatically includes class weights to correct for unbalanced data.</p>
 <p><strong>Cons</strong>: If the true relationship between scores and probabilities is not sigmoid-shaped, this method can be less accurate than non-parametric alternatives.</p>
-<ol class="arabic simple" start="2">
-<li><p>Isotonic Regression</p></li>
-</ol>
+</div>
+<div class="section" id="isotonic-regression">
+<h4>Isotonic Regression<a class="headerlink" href="#isotonic-regression" title="Permalink to this heading">#</a></h4>
 <p>This is a more flexible, non-parametric method. It fits a non-decreasing, step-wise function to the data. It makes no assumptions about the shape of the relationship between scores and probabilities, other than that it should be monotonic (i.e., as the score increases, the probability should not decrease).</p>
 <p><strong>How it Works</strong>: It essentially learns a set of “steps” that best map scores to probabilities.</p>
 <p><strong>Pros</strong>: Its flexibility allows it to correct for any monotonic distortion, often making it more accurate than Platt scaling on larger datasets.</p>
 <p><strong>Cons</strong>: Because it’s non-parametric, it requires more data and can be more prone to overfitting on very small datasets.</p>
-<ol class="arabic simple" start="3">
-<li><p>Bayesian Binning into Quantiles (BBQ)</p></li>
-</ol>
+</div>
+<div class="section" id="bayesian-binning-into-quantiles-bbq">
+<h4>Bayesian Binning into Quantiles (BBQ)<a class="headerlink" href="#bayesian-binning-into-quantiles-bbq" title="Permalink to this heading">#</a></h4>
 <p>This is a modern, non-parametric method that groups scores into bins of equal size (quantiles) and then uses a Bayesian averaging approach to estimate the probability within each bin.</p>
 <p><strong>How it Works</strong>: It creates a “smart histogram” of the scores and calculates a robust probability for each bin.</p>
 <p><strong>Pros</strong>: It is designed to be both flexible and robust, often providing a good balance between the properties of Platt scaling and Isotonic regression.</p>
 <p><strong>Cons</strong>: It is a more complex method conceptually.</p>
+</div>
 </div>
 <div class="section" id="recompute-calibration">
 <h3>2. Recompute Calibration<a class="headerlink" href="#recompute-calibration" title="Permalink to this heading">#</a></h3>
@@ -596,7 +601,7 @@ document.write(`
 <p class="admonition-title">Note</p>
 <p>This option only appears when you are viewing Out-Of-Cross-Validation (OOCV) data.</p>
 </div>
-<p>This powerful feature is used to correct for a potential “domain shift” or “batch effect” where the distribution of classifier scores for the OOCV dataset is systematically different from the training dataset. It works by aligning the median of the OOCV scores with the median of the training scores.</p>
+<p>This feature is used to correct for a potential “domain shift” or “batch effect” where the distribution of classifier scores for the OOCV dataset is systematically different from the training dataset. It works by aligning the median of the OOCV scores with the median of the training scores.</p>
 <ul class="simple">
 <li><p>None: No offset correction is applied.</p></li>
 <li><p>Remove offset using [Group 1] data: Calculates the median score from Group 1 subjects only in both the training set and the OOCV set, and then shifts the OOCV scores to align the medians.</p></li>
@@ -619,6 +624,10 @@ document.write(`
 For small N, Platt Scaling is often the safest and most robust choice.
 For larger N, Isotonic Regression or BBQ are more powerful and may yield better-calibrated probabilities.</p>
 </div>
+<div class="figure align-default" id="fig-nm-display-classification-calibration">
+<img alt="Neurominer result viewer, dca" src="_images/NM_Display_classification_Calibration.png" />
+<p class="caption"><span class="caption-number">Fig. 21 </span><span class="caption-text">Result viewer: Calibration Figure Window</span><a class="headerlink" href="#fig-nm-display-classification-calibration" title="Permalink to this image">#</a></p>
+</div>
 </div>
 </div>
 <div class="section" id="decisioncurve-analysis">
@@ -635,6 +644,10 @@ For larger N, Isotonic Regression or BBQ are more powerful and may yield better-
 <p><strong>The “Treat None” Line (treatNone)</strong>: This is always a horizontal line at a net benefit of zero. It represents the baseline strategy of applying the intervention to no one.</p>
 <p><strong>The Decision Rule</strong>: To interpret the plot, you choose a threshold probability on the x-axis that represents a clinically acceptable risk. For example, a clinician might decide to act only if a model predicts a &gt;20% chance of disease. At that chosen threshold, the best strategy is the one with the highest curve.</p>
 <p>Your model is considered clinically useful if its curve is above both the “Treat All” and “Treat None” lines within a range of clinically relevant and reasonable thresholds. If the “Treat All” line is highest, it suggests the condition is common or serious enough that everyone should be treated. If the model’s curve is below the “Treat None” line, it means the model is doing more harm than good.</p>
+<div class="figure align-default" id="fig-nm-display-classification-dca">
+<img alt="Neurominer result viewer, dca" src="_images/NM_Display_classification_DCA.png" />
+<p class="caption"><span class="caption-number">Fig. 22 </span><span class="caption-text">Result viewer: Decision Curve Analysis Window</span><a class="headerlink" href="#fig-nm-display-classification-dca" title="Permalink to this image">#</a></p>
+</div>
 </div>
 </div>
 <div class="toctree-wrapper compound">
@@ -717,7 +730,12 @@ For larger N, Isotonic Regression or BBQ are more powerful and may yield better-
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#model-selection-frequency">Model selection frequency</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#multi-group-results">Multi-group results</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#scores-probabilities-calibration-nm-1-4">Scores –&gt; Probabilities &amp; Calibration (NM 1.4)</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#calibration-methods">1. Calibration Methods</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#calibration-methods">1. Calibration Methods</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#platt-scaling">Platt Scaling</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isotonic-regression">Isotonic Regression</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#bayesian-binning-into-quantiles-bbq">Bayesian Binning into Quantiles (BBQ)</a></li>
+</ul>
+</li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#recompute-calibration">2. Recompute Calibration</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#offset-removal-oocv-only">3. Offset Removal (OOCV Only)</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#automatic-behavior">Automatic Behavior</a></li>

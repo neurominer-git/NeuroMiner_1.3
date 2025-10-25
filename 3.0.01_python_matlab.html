@@ -194,7 +194,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l2"><a class="reference internal" href="4.2.03_paramtemp_classification_algorithm.html">Classification algorithm</a></li>
 <li class="toctree-l2"><a class="reference internal" href="4.2.04_paramtemp_learning_algorithm_parameters.html">Learning algorithm parameters</a></li>
 <li class="toctree-l2"><a class="reference internal" href="4.2.05_paramtemp_ensemble_generation_strategies.html">Ensemble generation strategies</a></li>
-<li class="toctree-l2"><a class="reference internal" href="4.2.06_paramtemp_visualization_options.html">Visualization options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="4.2.06_paramtemp_visualization_options.html">Visualization Options</a></li>
 <li class="toctree-l2"><a class="reference internal" href="4.2.07_paramtemp_interpretation_options.html">Prediction interpretation options</a></li>
 
 <li class="toctree-l2"><a class="reference internal" href="4.2.08_paramtemp_model_saving_options.html">Model saving options</a></li>
@@ -526,22 +526,31 @@ document.write(`
 <div class="section" id="tensorflow-setup-nm-1-4">
 <h1>TensorFlow setup (NM 1.4)<a class="headerlink" href="#tensorflow-setup-nm-1-4" title="Permalink to this heading">#</a></h1>
 <p>To use TensorFlow models:</p>
-<ol class="arabic">
-<li><p>Install into the same Python environment that MATLAB uses:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>tensorflow
-
-<span class="m">2</span>.<span class="w">	</span><span class="o">(</span>GPU<span class="w"> </span>optional<span class="o">)</span><span class="w"> </span>Install<span class="w"> </span>a<span class="w"> </span>TF<span class="w"> </span>version<span class="w"> </span>compatible<span class="w"> </span>with<span class="w"> </span>your<span class="w"> </span>CUDA/cuDNN<span class="w"> </span>stack.<span class="w"> </span>Verify<span class="w"> </span>with:
+<ol class="arabic simple">
+<li><p>Install into the same Python environment that MATLAB uses:</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>pip<span class="w"> </span>install<span class="w"> </span>tensorflow
 </pre></div>
 </div>
-</li>
+<ol class="arabic simple" start="2">
+<li><p>(GPU optional) Install a TF version compatible with your CUDA/cuDNN stack. Verify with:</p></li>
 </ol>
-<p>py.importlib.import_module(‘tensorflow’);</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">py</span><span class="o">.</span><span class="n">importlib</span><span class="o">.</span><span class="n">import_module</span><span class="p">(</span><span class="s1">&#39;tensorflow&#39;</span><span class="p">);</span>
+
+</pre></div>
+</div>
 <ol class="arabic simple" start="3">
 <li><p>Confirm MATLAB is pointing to the correct Python via:</p></li>
 </ol>
-<p>pe = pyenv;  % check Executable and Version</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pe</span> <span class="o">=</span> <span class="n">pyenv</span><span class="p">;</span>  <span class="o">%</span> <span class="n">check</span> <span class="n">Executable</span> <span class="ow">and</span> <span class="n">Version</span>
+
+</pre></div>
+</div>
 <p>If imports fail, re‑link the environment:</p>
-<p>pyenv(“C:\Path\to\python.exe”)  % or /path/to/python</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pyenv</span><span class="p">(</span><span class="s2">&quot;C:\Path</span><span class="se">\t</span><span class="s2">o\python.exe&quot;</span><span class="p">)</span>  <span class="o">%</span> <span class="ow">or</span> <span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">python</span>
+
+</pre></div>
+</div>
 </div>
 
     <script type="text/x-thebe-config">

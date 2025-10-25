@@ -8,7 +8,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Visualization Pathways in NM 1.4: Component‑wise vs. Aggregated Back‑projection &#8212; NeuroMiner Manual</title>
+    <title>Visualization Pathways: Component‑wise vs. Aggregated Back‑projection &#8212; NeuroMiner Manual</title>
   
   
   
@@ -67,6 +67,8 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = '4.6.11_visualization_pathways_backprojection';</script>
     <link rel="canonical" href="https://neurominer-git.github.io/NeuroMiner_1.2/4.6.11_visualization_pathways_backprojection.html" />
     <link rel="shortcut icon" href="_static/nm_logo2.ico"/>
@@ -192,7 +194,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l2"><a class="reference internal" href="4.2.03_paramtemp_classification_algorithm.html">Classification algorithm</a></li>
 <li class="toctree-l2"><a class="reference internal" href="4.2.04_paramtemp_learning_algorithm_parameters.html">Learning algorithm parameters</a></li>
 <li class="toctree-l2"><a class="reference internal" href="4.2.05_paramtemp_ensemble_generation_strategies.html">Ensemble generation strategies</a></li>
-<li class="toctree-l2"><a class="reference internal" href="4.2.06_paramtemp_visualization_options.html">Visualization options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="4.2.06_paramtemp_visualization_options.html">Visualization Options</a></li>
 <li class="toctree-l2"><a class="reference internal" href="4.2.07_paramtemp_interpretation_options.html">Prediction interpretation options</a></li>
 
 <li class="toctree-l2"><a class="reference internal" href="4.2.08_paramtemp_model_saving_options.html">Model saving options</a></li>
@@ -421,7 +423,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Visualization Pathways in NM 1.4: Component‑wise vs. Aggregated Back‑projection</h1>
+    <h1>Visualization Pathways: Component‑wise vs. Aggregated Back‑projection</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -452,31 +454,31 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <div class="tex2jax_ignore mathjax_ignore section" id="visualization-pathways-in-nm-1-4-componentwise-vs-aggregated-backprojection">
-<span id="visualize-classifiers-pathways"></span><h1>Visualization Pathways in NM 1.4: Component‑wise vs. Aggregated Back‑projection<a class="headerlink" href="#visualization-pathways-in-nm-1-4-componentwise-vs-aggregated-backprojection" title="Permalink to this heading">#</a></h1>
+  <div class="tex2jax_ignore mathjax_ignore section" id="visualization-pathways-componentwise-vs-aggregated-backprojection">
+<span id="visualize-classifiers-pathways"></span><h1>Visualization Pathways: Component‑wise vs. Aggregated Back‑projection<a class="headerlink" href="#visualization-pathways-componentwise-vs-aggregated-backprojection" title="Permalink to this heading">#</a></h1>
 <p>This page explains how NeuroMiner 1.4 projects model weights back to feature space when a model is trained in a <strong>latent (component) space</strong> (e.g., PCA/ICA/NMF), and how inference differs between <strong>aggregated</strong> and <strong>component‑wise</strong> modes. It also documents permutation‑based testing and how components are aligned across CV1 folds. (Adapted from Koutsouleris, 2025.)</p>
 <div class="section" id="overview">
 <h2>1) Overview<a class="headerlink" href="#overview" title="Permalink to this heading">#</a></h2>
-<p>In factorization‑based pipelines (PCA, ICA, NMF, …), NeuroMiner trains the predictor on component scores (z_c = X v_c) with weights (w_c). Two display modes are available:</p>
+<p>In factorization‑based pipelines (PCA, ICA, NMF, …), NeuroMiner trains the predictor on component scores <span class="math notranslate nohighlight">\(z_c = X v_c\)</span> with weights <span class="math notranslate nohighlight">\(w_c\)</span>. Two display modes are available:</p>
 <ul class="simple">
 <li><p><strong>Aggregated</strong>: a <strong>single</strong> back‑projected map
-[
-w_{\mathrm{agg}}=\sum_{c=1}^{C} w_c, v_c
-]</p></li>
+$<span class="math notranslate nohighlight">\(
+w_{\mathrm{agg}}=\sum_{c=1}^{C} w_c\, v_c
+\)</span>$</p></li>
 <li><p><strong>Component‑wise</strong>: a <strong>set</strong> of maps, one per selected component
-[
-w^{(\mathrm{backproj})}_c = w_c, v_c \quad\text{for selected } c
-]</p></li>
+$<span class="math notranslate nohighlight">\(
+w^{(\mathrm{backproj})}_c = w_c\, v_c \quad\text{for selected } c
+\)</span>$</p></li>
 </ul>
 <p>Aggregated maps give a compact “overall” picture; component‑wise maps preserve factor structure and typically offer higher statistical power.</p>
 </div>
 <div class="section" id="geometry-implications">
 <h2>2) Geometry &amp; implications<a class="headerlink" href="#geometry-implications" title="Permalink to this heading">#</a></h2>
 <p>With aggregation, cross‑component covariance can <strong>attenuate</strong> apparent signal (cancellation):
-[
-\mathrm{Var}(w_{\mathrm{agg}})=\sum_c w_c^2 \mathrm{Var}(v_c) + 2!!\sum_{1\le c&lt;d\le C} ! w_c w_d, \mathrm{Cov}(v_c, v_d).
-]</p>
-<p>This is why feature‑level permutation tests on (w_{\mathrm{agg}}) often show fewer significant features than the factor‑resolved tests on (w^{(\mathrm{backproj})}_c).</p>
+$<span class="math notranslate nohighlight">\(
+\mathrm{Var}(w_{\mathrm{agg}})=\sum_c w_c^2 \mathrm{Var}(v_c) + 2\!\!\sum_{1\le c&lt;d\le C} \! w_c w_d\, \mathrm{Cov}(v_c, v_d).
+\)</span>$</p>
+<p>This is why feature‑level permutation tests on <span class="math notranslate nohighlight">\(w_{\mathrm{agg}}\)</span> often show fewer significant features than the factor‑resolved tests on <span class="math notranslate nohighlight">\(w^{(\mathrm{backproj})}_c\)</span>.</p>
 <p><strong>At a glance</strong></p>
 <table class="colwidths-auto table">
 <thead>
@@ -508,38 +510,38 @@ w^{(\mathrm{backproj})}_c = w_c, v_c \quad\text{for selected } c
 <div class="section" id="statistical-hierarchy-componentwise-mode">
 <h2>3) Statistical hierarchy (component‑wise mode)<a class="headerlink" href="#statistical-hierarchy-componentwise-mode" title="Permalink to this heading">#</a></h2>
 <ol class="arabic simple">
-<li><p><strong>Component selection in model space</strong>: test whether each component contributes significantly; control FDR across components → discovery set (\mathcal{C}_{\mathrm{sig}}).</p></li>
-<li><p><strong>Feature‑level inference within each selected component</strong>: run feature‑wise tests on (w^{(\mathrm{backproj})}<em>c) for (c\in\mathcal{C}</em>{\mathrm{sig}}); control FDR <strong>per component</strong>.</p></li>
+<li><p><strong>Component selection in model space</strong>: test whether each component contributes significantly; control FDR across components → discovery set <span class="math notranslate nohighlight">\(\mathcal{C}_{\mathrm{sig}}\)</span>.</p></li>
+<li><p><strong>Feature‑level inference within each selected component</strong>: run feature‑wise tests on <span class="math notranslate nohighlight">\(w^{(\mathrm{backproj})}_c\)</span> for <span class="math notranslate nohighlight">\(c\in\mathcal{C}_{\mathrm{sig}}\)</span>; control FDR <strong>per component</strong>.</p></li>
 </ol>
 <p>This is a <strong>hierarchical selective‑inference</strong> design: the feature‑level family is restricted to the already‑discovered components; no extra correction across components at the feature level.</p>
 </div>
 <div class="section" id="permutation-inference-two-modes">
 <h2>4) Permutation inference: two modes<a class="headerlink" href="#permutation-inference-two-modes" title="Permalink to this heading">#</a></h2>
-<p>Let (P) be the set of label permutations.</p>
+<p>Let <span class="math notranslate nohighlight">\(P\)</span> be the set of label permutations.</p>
 <div class="section" id="aggregated-mode">
 <h3>4.1 Aggregated mode<a class="headerlink" href="#aggregated-mode" title="Permalink to this heading">#</a></h3>
 <p>Test a composite field against its permuted counterparts:
-[
-T_{\mathrm{agg}}=\phi(w_{\mathrm{agg}})\ \text{vs.}\ \bigl{\phi(w^{(p)}_{\mathrm{agg}}): p\in P\bigr},
-]
-with a feature‑wise statistic (\phi(\cdot)) (e.g., (|w|) or a Z‑score). Because factors are mixed, null variance inflates and sensitivity drops.</p>
+$<span class="math notranslate nohighlight">\(
+T_{\mathrm{agg}}=\phi(w_{\mathrm{agg}})\ \text{vs.}\ \bigl\{\phi(w^{(p)}_{\mathrm{agg}}): p\in P\bigr\},
+\)</span><span class="math notranslate nohighlight">\(
+with a feature‑wise statistic \)</span>\phi(\cdot)<span class="math notranslate nohighlight">\( (e.g., \)</span>|w|$ or a Z‑score). Because factors are mixed, null variance inflates and sensitivity drops.</p>
 </div>
 <div class="section" id="componentwise-mode-with-selection-under-the-null">
 <h3>4.2 Component‑wise mode with selection under the null<a class="headerlink" href="#componentwise-mode-with-selection-under-the-null" title="Permalink to this heading">#</a></h3>
 <ol class="arabic simple">
-<li><p>Compute a component score (s_c) (e.g., (|w_c|)). For each (p\in P), compute (S^{(p)}_c).</p></li>
-<li><p>Select components via FDR in the observed data → (\mathcal{C}_{\mathrm{sig}}).</p></li>
+<li><p>Compute a component score <span class="math notranslate nohighlight">\(s_c\)</span> (e.g., <span class="math notranslate nohighlight">\(|w_c|\)</span>). For each <span class="math notranslate nohighlight">\(p\in P\)</span>, compute <span class="math notranslate nohighlight">\(S^{(p)}_c\)</span>.</p></li>
+<li><p>Select components via FDR in the observed data → <span class="math notranslate nohighlight">\(\mathcal{C}_{\mathrm{sig}}\)</span>.</p></li>
 <li><p><strong>Mirror selection under the null</strong> per permutation using one of:</p></li>
 </ol>
 <ul class="simple">
-<li><p><strong>Rank‑matched top‑K</strong>: let (K=|\mathcal{C}_{\mathrm{sig}}|), select the top‑(K) (S^{(p)}_c).</p></li>
-<li><p><strong>Threshold‑matched</strong>: determine observed cutoff (t_{\mathrm{obs}}); select all (c) with (S^{(p)}<em>c\ge t</em>{\mathrm{obs}}) (trim/pad to (K) if needed).</p></li>
+<li><p><strong>Rank‑matched top‑K</strong>: let <span class="math notranslate nohighlight">\(K=|\mathcal{C}_{\mathrm{sig}}|\)</span>, select the top‑<span class="math notranslate nohighlight">\(K\)</span> <span class="math notranslate nohighlight">\(S^{(p)}_c\)</span>.</p></li>
+<li><p><strong>Threshold‑matched</strong>: determine observed cutoff <span class="math notranslate nohighlight">\(t_{\mathrm{obs}}\)</span>; select all <span class="math notranslate nohighlight">\(c\)</span> with <span class="math notranslate nohighlight">\(S^{(p)}_c\ge t_{\mathrm{obs}}\)</span> (trim/pad to <span class="math notranslate nohighlight">\(K\)</span> if needed).</p></li>
 </ul>
 <ol class="arabic simple" start="4">
-<li><p>For feature (f) in selected slot (c), compute empirical p:
-[
-\hat p_{f,c} = \frac{E_{f,c}+1}{|P_f|+1},\quad E_{f,c}=\sum_{p\in P_f}\mathbf{1}!\left(\bigl|w^{(p)}<em>{f,c}\bigr|\ge \bigl|w</em>{f,c}\bigr|\right).
-]
+<li><p>For feature <span class="math notranslate nohighlight">\(f\)</span> in selected slot <span class="math notranslate nohighlight">\(c\)</span>, compute empirical p:
+$<span class="math notranslate nohighlight">\(
+\hat p_{f,c} = \frac{E_{f,c}+1}{|P_f|+1},\quad E_{f,c}=\sum_{p\in P_f}\mathbf{1}\!\left(\bigl|w^{(p)}_{f,c}\bigr|\ge \bigl|w_{f,c}\bigr|\right).
+\)</span>$
 Apply FDR <strong>within</strong> each component. When using Z‑scores, compute permutation mean/variance with <strong>valid counts</strong> to handle missingness.</p></li>
 </ol>
 </div>
@@ -548,16 +550,16 @@ Apply FDR <strong>within</strong> each component. When using Z‑scores, compute
 <h2>5) Multi‑modal shares and fusion<a class="headerlink" href="#multimodal-shares-and-fusion" title="Permalink to this heading">#</a></h2>
 <p>For early fusion, decompose the concatenated feature matrix; for intermediate fusion, decompose per modality and align components across modalities first.</p>
 <ul class="simple">
-<li><p><strong>Aggregated (modality‑level) share</strong> over components (\mathcal{C}):
-[
-L^{(m)}<em>p=\frac{\sum</em>{c\in\mathcal{C}}\bigl|w^{(m)}<em>c\bigr|<em>p}{\sum</em>{m’}\sum</em>{c\in\mathcal{C}}\bigl|w^{(m’)}_c\bigr|_p}
-]</p></li>
-<li><p><strong>Component×modality share</strong> (factor‑resolved), for (c\in\mathcal{C}<em>{\mathrm{sig}}):
-[
-L^{(m)}</em>{p,c}=\frac{\bigl|w^{(m)}_c\bigr|<em>p}{\sum</em>{m’}\bigl|w^{(m’)}_c\bigr|_p}.
-]</p></li>
+<li><p><strong>Aggregated (modality‑level) share</strong> over components <span class="math notranslate nohighlight">\(\mathcal{C}\)</span>:
+$<span class="math notranslate nohighlight">\(
+L^{(m)}_p=\frac{\sum_{c\in\mathcal{C}}\bigl\|w^{(m)}_c\bigr\|_p}{\sum_{m'}\sum_{c\in\mathcal{C}}\bigl\|w^{(m')}_c\bigr\|_p}
+\)</span>$</p></li>
+<li><p><strong>Component×modality share</strong> (factor‑resolved), for <span class="math notranslate nohighlight">\(c\in\mathcal{C}_{\mathrm{sig}}\)</span>:
+$<span class="math notranslate nohighlight">\(
+L^{(m)}_{p,c}=\frac{\bigl\|w^{(m)}_c\bigr\|_p}{\sum_{m'}\bigl\|w^{(m')}_c\bigr\|_p}.
+\)</span>$</p></li>
 </ul>
-<p>Use (\mathcal{C}=) all components in aggregated mode; use (\mathcal{C}_{\mathrm{sig}}) in component‑wise mode.</p>
+<p>Use <span class="math notranslate nohighlight">\(\mathcal{C}=\)</span> all components in aggregated mode; use <span class="math notranslate nohighlight">\(\mathcal{C}_{\mathrm{sig}}\)</span> in component‑wise mode.</p>
 </div>
 <div class="section" id="alignment-across-cv1-folds-component-matching-sign-correction">
 <h2>6) Alignment across CV1 folds (component matching &amp; sign correction)<a class="headerlink" href="#alignment-across-cv1-folds-component-matching-sign-correction" title="Permalink to this heading">#</a></h2>
@@ -567,7 +569,7 @@ L^{(m)}</em>{p,c}=\frac{\bigl|w^{(m)}_c\bigr|<em>p}{\sum</em>{m’}\bigl|w^{(m�
 <li><p>Compute a <strong>similarity matrix</strong> (default: Pearson correlation).</p></li>
 <li><p>Solve a <strong>maximum‑weight assignment</strong> (Hungarian / linear‑sum) with a similarity threshold; unmatched slots are left NaN.</p></li>
 <li><p><strong>Sign‑correct</strong> matched columns so orientations are consistent.</p></li>
-<li><p><strong>Propagate</strong> the alignment to p‑values, correlations, magnitudes, and multi‑modal energy summaries (component (L_2) norms).</p></li>
+<li><p><strong>Propagate</strong> the alignment to p‑values, correlations, magnitudes, and multi‑modal energy summaries (component <span class="math notranslate nohighlight">\(L_2\)</span> norms).</p></li>
 </ul>
 <p>See also: <em>Component matching across folds</em> below for an operational summary and pointers to controls.</p>
 <div class="admonition note">
