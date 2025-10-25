@@ -211,11 +211,9 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="4.3_mainmenu_initialize_delete_analyses.html">Initialize analyses</a></li>
 <li class="toctree-l1"><a class="reference internal" href="4.4_mainmenu_preprocess_features.html">Preprocess features</a></li>
 <li class="toctree-l1"><a class="reference internal" href="4.5_mainmenu_train_supervised_classifiers.html">Train supervised classifiers</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="4.6_mainmenu_visualize_classifiers.html">Visualize classifiers</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul class="simple">
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="4.6_mainmenu_visualize_classifiers.html">Visualize classifiers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="4.14_mainmenu_interprete_classifiers.html">Interprete predictions</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="4.7_mainmenu_display_training_results.html">Result Viewer</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="4.7_mainmenu_display_training_results.html">Result Viewer</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="4.7.01_mainmenu_display_visualization_results.html">Visualization results</a></li>
 
 
@@ -466,7 +464,7 @@ document.write(`
 <li><p><strong>Preprocessing</strong>: robust <strong>F‑score</strong> (imbalance‑sensitive, bootstrap, mean/median, MEX), <strong>skewness correction</strong> (log‑based, Box‑Lambda, Yeo–Johnson), <strong>weight‑vector utilities</strong>, <strong>thresholding</strong>
 <strong>Nuisance correction</strong>: <strong>ComBat for unseen batches</strong> supporting external validation of model pipelines using ComBat correction.</p></li>
 <li><p><strong>Visualization</strong>: new <strong>Overlay NIfTI Viewer</strong>, calibration curves &amp; <strong>DCA</strong>, non‑imaging bar‑plot improvements, <strong>FeatureRelevanceGUI</strong> in Result Viewer</p></li>
-<li><p><strong>TensorFlow models</strong>:</p></li>
+<li><p><strong>Adaptive and Natural-Stopping Wrappers for Greedy Feature Search</strong>: The gready feature selection wrappers have been signficantly upgraded to be more intelligent, automatic, and robust. The update replaces the old system of manually-tuned, arbitrary stopping thresholds with a new adaptive framework.</p></li>
 </ul>
 </div>
 <div class="section" id="compatibility">
@@ -484,14 +482,14 @@ document.write(`
 <li><p><strong>Prefer component‑wise back‑projection for DR‑based models (PCA/ICA/NMF/PLS).</strong><br />
 Component‑wise maps preserve the latent structure and typically show <strong>higher sensitivity</strong> than aggregated maps, which can hide signal due to <strong>cross‑component covariance and sign cancellation</strong>. In symbols:
 (w_{\text{agg}}=\sum_{c} w_c,v_c) vs. (w^{(\text{backproj})}_c = w_c,v_c).
-In NM 1.4, feature‑level inference is performed <strong>within each discovered component</strong> with FDR control per component, and selection is mirrored under the null during permutation testing. See <strong>Visualization Pathways in NM 1.4</strong> for details. :contentReference[oaicite:0]{index=0}</p></li>
+In NM 1.4, feature‑level inference is performed <strong>within each discovered component</strong> with FDR control per component, and selection is mirrored under the null during permutation testing. See <strong>Visualization Pathways in NM 1.4</strong> for details.</p></li>
 </ul>
 <div class="section" id="how-to-migrate-your-figures-quickly">
 <h3>How to migrate your figures quickly<a class="headerlink" href="#how-to-migrate-your-figures-quickly" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Where you previously reported only an <strong>aggregated</strong> map, add a <strong>component‑wise</strong> panel (per significant component) and report per‑component q‑values.</p></li>
 <li><p>Enable <strong>component matching &amp; sign correction</strong> so the same component index refers to the same latent factor across CV folds.</p></li>
-<li><p>For multi‑modal work, add <strong>modality‑level</strong> and <strong>component×modality</strong> (L_p) shares to show where signal comes from. :contentReference[oaicite:1]{index=1}</p></li>
+<li><p>For multi‑modal work, add <strong>modality‑level</strong> and <strong>component×modality</strong> (L_p) shares to show where signal comes from.</p></li>
 </ul>
 </div>
 </div>
