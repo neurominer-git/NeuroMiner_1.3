@@ -419,7 +419,7 @@ switch OptimFlag
                     
                     OobScoreparstr = 'Out-of-bag samples yes/no'; [OobScorestr, n_pars(end+1)] = nk_ConcatParamstr( OobScoredefs );
                     PX = nk_AddParam(OobScoredefs, ['ML-' OobScorestr], 2, PX);
-                    if Bootstrapdefs 
+                    if OobScoredefs
                         OobScorestr = 'yes';
                     else
                         OobScorestr = 'no';
